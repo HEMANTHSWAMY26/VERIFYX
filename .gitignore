@@ -1,0 +1,54 @@
+# VERIFYX Git Ignore Configuration
+
+# Dependencies & Build Outputs
+node_modules/
+**/node_modules/
+dist/
+**/dist/
+dist-ssr/
+build/
+*.tsbuildinfo
+
+# Environment & Credentials
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.cert
+
+# Large Datasets & Caches (Do NOT commit 433MB raw zip datasets)
+data/*.zip
+*.zip
+*.tar.gz
+*.onnx.cache
+.cache/
+__pycache__/
+*.pyc
+
+# Agent Scratch & Temporary Files
+scratch/
+.gemini/
+.agents/
+.brain/
+.system_generated/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+
+# IDE & OS Temporary Files
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Personal Photos & Camera Captures
+*.jpg.tmp
+captures/
+personal_photos/

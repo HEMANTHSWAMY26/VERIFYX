@@ -1,0 +1,372 @@
+.rescan-page {
+    min-height: 100vh;
+    background: #050707;
+    color: white;
+    padding: 24px 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.rescan-container {
+    width: min(780px, 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.rescan-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: 0;
+    color: #89918e;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0;
+    width: fit-content;
+    transition: color 0.2s ease;
+}
+
+.rescan-back-btn:hover {
+    color: #f4f7f6;
+}
+
+.rescan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+}
+
+.rescan-eyebrow {
+    color: #00ff9d;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    display: block;
+    margin-bottom: 6px;
+}
+
+.rescan-header h1 {
+    font-size: clamp(28px, 3.5vw, 38px);
+    margin: 0;
+    font-weight: 800;
+}
+
+.rescan-cam-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    background: #111715;
+    border: 1px solid #202925;
+    color: #6d7874;
+}
+
+.rescan-cam-badge.active {
+    background: rgba(0, 255, 157, 0.1);
+    border-color: rgba(0, 255, 157, 0.35);
+    color: #00ff9d;
+}
+
+.rescan-subtitle {
+    color: #86928e;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* CAMERA CARD */
+.rescan-camera-card {
+    position: relative;
+    width: 100%;
+    height: 420px;
+    background: #080c0b;
+    border: 1px solid #1c2622;
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rescan-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.rescan-camera-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #687470;
+    text-align: center;
+    padding: 24px;
+}
+
+.rescan-camera-placeholder h3 {
+    margin: 4px 0 0;
+    font-size: 18px;
+    color: #cbd4d1;
+}
+
+.rescan-camera-placeholder p {
+    margin: 0;
+    font-size: 13px;
+    color: #808b87;
+}
+
+.rescan-retry-btn {
+    margin-top: 8px;
+    padding: 8px 16px;
+    background: #192420;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    color: #00ff9d;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* RETICLE OVERLAY */
+.rescan-reticle-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.target-box {
+    position: relative;
+    width: 60%;
+    height: 55%;
+    border: 1px dashed rgba(0, 255, 157, 0.4);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.target-box.cleared {
+    border: 2px solid #00ff9d;
+    background: rgba(0, 255, 157, 0.12);
+    box-shadow: 0 0 30px rgba(0, 255, 157, 0.25);
+}
+
+.reticle-corner {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: #00ff9d;
+    border-style: solid;
+}
+
+.reticle-corner.tl {
+    top: -2px;
+    left: -2px;
+    border-width: 3px 0 0 3px;
+}
+.reticle-corner.tr {
+    top: -2px;
+    right: -2px;
+    border-width: 3px 3px 0 0;
+}
+.reticle-corner.bl {
+    bottom: -2px;
+    left: -2px;
+    border-width: 0 0 3px 3px;
+}
+.reticle-corner.br {
+    bottom: -2px;
+    right: -2px;
+    border-width: 0 3px 3px 0;
+}
+
+.target-label {
+    position: absolute;
+    top: -26px;
+    left: 0;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+}
+
+.label-eval {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #0f1614;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    color: #00ff9d;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.label-cleared {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #00ff9d;
+    color: #03100a;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+/* LASER SCANNING LINE */
+.rescan-laser-line {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: #00ff9d;
+    box-shadow: 0 0 15px #00ff9d, 0 0 30px #00ff9d;
+    animation: rescanLaser 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes rescanLaser {
+    0% {
+        top: 25%;
+        opacity: 0.6;
+    }
+    100% {
+        top: 75%;
+        opacity: 1;
+    }
+}
+
+/* SUCCESS BANNER */
+.rescan-success-banner {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 20px;
+    background: rgba(3, 16, 10, 0.92);
+    border: 1px solid #00ff9d;
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: #00ff9d;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    animation: slideUp 0.3s ease;
+}
+
+.rescan-success-banner strong {
+    display: block;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+.rescan-success-banner span {
+    font-size: 11px;
+    color: #92eec4;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(15px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* CONTROLS PANEL */
+.rescan-controls-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.instruction-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: #0a0e0d;
+    border: 1px solid #1c2622;
+    border-radius: 10px;
+}
+
+.instruction-icon {
+    color: #00ff9d;
+}
+
+.instruction-box strong {
+    display: block;
+    font-size: 13px;
+    color: #d1d8d5;
+}
+
+.instruction-box span {
+    display: block;
+    font-size: 11px;
+    color: #788581;
+    margin-top: 2px;
+}
+
+.rescan-trigger-btn {
+    width: 100%;
+    padding: 18px 24px;
+    background: #00ff9d;
+    color: #03100a;
+    border: 0;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rescan-trigger-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 255, 157, 0.25);
+}
+
+.rescan-trigger-btn.running {
+    background: #111a17;
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    color: #00ff9d;
+    cursor: wait;
+}
+
+.rescan-trigger-btn.success {
+    background: #00ff9d;
+    color: #03100a;
+}
+
+.rescan-spinner-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #00ff9d;
+    animation: blink 0.8s infinite alternate;
+}
+
+@keyframes blink {
+    from {
+        opacity: 0.2;
+    }
+    to {
+        opacity: 1;
+    }
+}

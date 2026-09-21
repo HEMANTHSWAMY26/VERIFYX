@@ -1,0 +1,86 @@
+import {
+  motion
+}
+
+from "framer-motion";
+
+import {
+  ArrowRight,
+  Camera,
+  ShieldCheck,
+  WifiOff,
+  Zap,
+}
+
+from "lucide-react";
+import "./index.css";
+
+function App() {
+  return (<main className="app" > <nav className="navbar" > <div className="brand" > <span>VERIFY</span> <span className="brand-x" >X</span> </div> <div className="nav-status" > <span className="status-dot" /> ON-DEVICE AI </div> </nav> <section className="hero" > <motion.div className="hero-content"
+
+    initial= {
+        {
+        opacity: 0, y: 25
+      }
+    }
+
+    animate= {
+        {
+        opacity: 1, y: 0
+      }
+    }
+
+    transition= {
+        {
+        duration: 0.7
+      }
+    }
+
+    > <div className="eyebrow" > <span className="eyebrow-line" /> PHYSICAL-WORLD VERIFICATION AI </div> <h1> See what’s wrong. <br /> <span>Fix it.</span> </h1> <p className="hero-description" > VERIFYX uses on-device AI to understand real-world environments,
+    verify business standards, and instantly show what needs attention. </p> <button className="start-button" > <Camera size= {
+      19
+    }
+
+    /> START VERIFICATION <ArrowRight size= {
+      18
+    }
+
+    /> </button> <div className="trust-row" > <div> <WifiOff size= {
+      16
+    }
+
+    /> <span>Offline-first</span> </div> <div> <ShieldCheck size= {
+      16
+    }
+
+    /> <span>Privacy-first</span> </div> <div> <Zap size= {
+      16
+    }
+
+    /> <span>On-device AI</span> </div> </div> </motion.div> <motion.div className="scan-preview"
+    initial= {
+        {
+        opacity: 0, scale: 0.94
+      }
+    }
+
+    animate= {
+        {
+        opacity: 1, scale: 1
+      }
+    }
+
+    transition= {
+        {
+        duration: 0.8, delay: 0.15
+      }
+    }
+
+    > <div className="scan-header" > <div> <span className="live-dot" /> LIVE ENVIRONMENT </div> <span>VERIFYX / 01</span> </div> <div className="scan-area" > <div className="scan-corners" /> <div className="scan-object" > <div className="object-box" > <span>FIRE EXTINGUISHER</span> </div> <div className="issue-badge" > <span /> OBSTRUCTED </div> </div> <div className="scan-line" /> <div className="scan-hint" > <Camera size= {
+      17
+    }
+
+    /> Point your camera at the workplace </div> </div> <div className="scan-footer" > <div> <strong>4 / 5</strong> <span>requirements verified</span> </div> <div className="verification-state" > <span /> 1 ISSUE FOUND </div> </div> </motion.div> </section> <footer> <span>POINT.</span> <span>VERIFY.</span> <span>FIX.</span> <span className="footer-muted" >VERIFY AGAIN.</span> </footer> </main>);
+}
+
+export default App;

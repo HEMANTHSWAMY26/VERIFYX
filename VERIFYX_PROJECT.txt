@@ -1,0 +1,860 @@
+VERIFYX — PROJECT MASTER DOCUMENT
+===================================
+
+PROJECT
+VERIFYX
+
+TAGLINE
+POINT. VERIFY. FIX. VERIFY AGAIN.
+
+PURPOSE
+Build a phone-first, offline-first AI system that verifies real-world workplace conditions against predefined standards.
+
+1. WHAT WE ARE BUILDING
+-----------------------
+VERIFYX turns a smartphone into a physical-world verification tool.
+
+An employee points the phone at a workplace environment.
+VERIFYX observes the environment.
+AI detects relevant objects/conditions.
+A rules engine compares observations against predefined standards.
+The system identifies PASS / FAIL / WARNING conditions.
+The employee fixes an issue.
+VERIFYX scans again and verifies the correction.
+A report/evidence record can be generated.
+
+Core loop:
+
+POINT
+  ↓
+VERIFY
+  ↓
+FIX
+  ↓
+VERIFY AGAIN
+
+Initial use case:
+WORKPLACE SAFETY VERIFICATION
+
+Initial checks:
+- Fire Extinguisher
+- Emergency Exit
+- Safety Sign
+- Clear Pathway
+- Required Equipment
+
+2. WHY WE ARE BUILDING IT
+-------------------------
+Businesses often rely on paper checklists, photos, manual observation, experienced supervisors, and manual reporting for physical inspections.
+
+Problems:
+- Inspections can be slow.
+- Different employees can interpret standards differently.
+- Issues can be missed.
+- Evidence can be disconnected from the checklist.
+- Supervisors may need to manually review photos.
+- Fixes may not be verified immediately.
+- Digital standards still require manual comparison with the physical world.
+
+VERIFYX aims to close this gap:
+
+DIGITAL STANDARD
+      ↓
+PHONE CAMERA
+      ↓
+AI OBSERVATION
+      ↓
+RULE VERIFICATION
+      ↓
+ACTIONABLE RESULT
+      ↓
+FIX
+      ↓
+RE-VERIFICATION
+
+3. PRODUCT PHILOSOPHY
+---------------------
+Complex technology underneath.
+Extremely simple experience outside.
+
+The employee should only need to understand:
+
+START
+SCAN
+SEE ISSUE
+FIX
+VERIFY AGAIN
+
+The employee does not need to understand AI, computer vision, models, APIs, spatial computing, or rules engines.
+
+4. END GOAL
+-----------
+The end goal is not simply a camera app.
+
+The end goal is a reusable physical-world verification platform.
+
+Architecture:
+
+PHONE CAMERA
+     ↓
+AI / COMPUTER VISION
+     ↓
+SPATIAL / CONTEXT UNDERSTANDING
+     ↓
+RULE ENGINE
+     ↓
+VERIFICATION RESULT
+     ↓
+EVIDENCE
+     ↓
+REPORT / BUSINESS WORKFLOW
+
+The first use case is workplace safety. The architecture should later be reusable for other business verification scenarios.
+
+Possible future areas:
+- Store readiness
+- Workplace inspection
+- Equipment-area verification
+- Facility checks
+- Service-location verification
+- Compliance-style checklists
+- Operational readiness
+- Asset presence verification
+
+For the hackathon, keep the scope focused.
+
+5. COMPLETE USER JOURNEY
+------------------------
+SCREEN 1 — HOME
+Purpose: Explain VERIFYX and start verification.
+Action: START VERIFICATION
+
+SCREEN 2 — VERIFICATION SETUP
+Profile: WORKPLACE SAFETY
+Checklist:
+✓ Fire Extinguisher
+✓ Emergency Exit
+✓ Safety Sign
+✓ Clear Pathway
+✓ Required Equipment
+Action: START SCAN
+
+SCREEN 3 — LIVE SCAN
+Purpose: Use the phone camera to observe the environment.
+Current prototype:
+- Real browser camera
+- Simulated AI overlays
+Future:
+- Real local AI
+- Real scene understanding
+- Real rule verification
+
+SCREEN 4 — VERIFICATION RESULTS
+Example:
+4 / 5 REQUIREMENTS VERIFIED
+✓ Fire Extinguisher
+✓ Emergency Exit
+✓ Safety Sign
+✓ Required Equipment
+⚠ Clear Pathway — ISSUE
+
+Actions:
+VIEW ISSUE
+GENERATE REPORT
+
+SCREEN 5 — ISSUE DETAILS
+Example:
+ISSUE DETECTED
+CLEAR PATHWAY
+Obstruction detected near required access area.
+Action:
+FIX ISSUE
+
+SCREEN 6 — RE-SCAN
+Purpose: Verify that the issue was actually fixed.
+Before: 4 / 5
+After: 5 / 5
+
+SCREEN 7 — VERIFICATION COMPLETE
+5 / 5
+ALL REQUIREMENTS VERIFIED
+Actions:
+GENERATE REPORT
+NEW VERIFICATION
+
+SCREEN 8 — REPORT / EVIDENCE
+Potential contents:
+- Verification profile
+- Date/time
+- Checklist
+- Passed requirements
+- Failed requirements
+- Evidence images
+- Issue description
+- Re-verification result
+- Final status
+
+6. CURRENT PROTOTYPE STATUS
+---------------------------
+DONE:
+✓ Vite React TypeScript project
+✓ Framer Motion
+✓ Lucide React
+✓ Home screen
+✓ Verification Setup
+✓ Navigation
+✓ Real browser camera access
+✓ Live camera preview
+✓ Simulated detection overlays
+✓ Verification Results
+
+NEXT:
+→ Issue Details
+→ Fix Issue
+→ Re-scan
+→ Final Verified State
+→ Report
+
+7. DEVELOPMENT STRATEGY
+-----------------------
+PHASE 1 — PRODUCT FLOW
+Build every screen using controlled/simulated detection data.
+Goal: complete runnable product journey.
+
+PHASE 2 — REAL CAMERA
+Use actual device camera.
+Current prototype: browser MediaDevices API.
+Future: Android CameraX.
+
+PHASE 3 — LOCAL AI
+Replace simulated detection with local AI.
+No mandatory cloud inference.
+
+PHASE 4 — RULE ENGINE
+AI provides observations.
+Rules determine compliance.
+
+PHASE 5 — EVIDENCE
+Capture evidence associated with verification results.
+
+PHASE 6 — REPORT
+Generate a structured business report.
+
+PHASE 7 — ANDROID / iQOO
+Move the core experience to Android using CameraX and local inference. ARCore can be added where useful.
+
+PHASE 8 — FINAL POLISH
+Only after functionality:
+- UI/UX
+- Animations
+- Performance
+- Phone-first design
+- iQOO-inspired visual identity
+- Demo optimization
+- Presentation
+
+8. WHY FUNCTIONALITY COMES FIRST
+--------------------------------
+The current UI is intentionally prototype-level.
+
+We do not want to spend time making beautiful screens that later need structural changes.
+
+Priority:
+1. Functionality
+2. Product logic
+3. Camera integration
+4. AI integration
+5. Re-verification
+6. Evidence/report
+7. Performance
+8. UI/UX polish
+
+9. CURRENT TECHNOLOGY STACK
+---------------------------
+Prototype frontend:
+- React
+- TypeScript
+- Vite
+
+Installed:
+- Framer Motion
+- Lucide React
+
+Why React:
+- Fast prototyping
+- Components
+- Easy state-driven navigation
+- Fast iteration
+
+Why TypeScript:
+- Safer component interfaces
+- Better maintainability
+- Fewer navigation/type mistakes
+
+Why Vite:
+- Fast development server
+- Hot reload
+- Lightweight setup
+
+10. CURRENT PROJECT STRUCTURE
+-----------------------------
+src/
+├── components/
+│   ├── VerifyXHome.tsx
+│   ├── VerifyXHome.css
+│   ├── VerificationSetup.tsx
+│   ├── VerificationSetup.css
+│   ├── LiveScan.tsx
+│   ├── LiveScan.css
+│   ├── VerificationResults.tsx
+│   └── VerificationResults.css
+├── App.tsx
+├── App.css
+├── index.css
+└── main.tsx
+
+Future structure can add:
+- ai/
+- rules/
+- camera/
+- evidence/
+- reports/
+- data/
+- utils/
+
+11. NAVIGATION ARCHITECTURE
+---------------------------
+Current states:
+home
+setup
+scan
+results
+
+Current flow:
+home
+ ↓
+setup
+ ↓
+scan
+ ↓
+results
+
+Next:
+results
+ ↓
+issue
+ ↓
+rescan
+ ↓
+verified
+ ↓
+report
+
+12. CAMERA ARCHITECTURE
+-----------------------
+Current web prototype:
+navigator.mediaDevices.getUserMedia()
+
+The stream is attached to an HTMLVideoElement.
+
+The prototype requests video only and prefers the environment-facing camera.
+
+Future Android:
+CameraX for:
+- Camera preview
+- Frame analysis
+- Lifecycle management
+- Device compatibility
+- Image analysis
+
+13. AI ARCHITECTURE
+-------------------
+CURRENT:
+Simulated detections.
+
+Example:
+FIRE EXTINGUISHER — DETECTED
+ACCESS AREA — OBSTRUCTED
+SAFETY SIGN — VERIFIED
+
+These are NOT real AI detections yet.
+
+FUTURE:
+
+Camera frames
+     ↓
+Preprocessing
+     ↓
+Local AI model
+     ↓
+Object detection
+     ↓
+Spatial/context analysis
+     ↓
+Rules engine
+     ↓
+Verification result
+
+14. AI MODEL DIRECTION
+----------------------
+Prioritize:
+- Lightweight models
+- Open-source models
+- Local inference
+- Fast inference
+- Android compatibility
+- Low memory usage
+- Practical detection accuracy
+
+Model families to evaluate:
+- Lightweight YOLO-family models
+- Mobile-friendly vision models
+- ONNX-compatible models
+- TensorFlow Lite-compatible models
+- Qualcomm-compatible inference paths
+
+Model selection criteria:
+1. Accuracy for required objects
+2. Inference speed
+3. Model size
+4. Android compatibility
+5. Offline operation
+6. Deployment simplicity
+7. License suitability
+
+Do not select a model just because it is popular.
+
+15. RULE ENGINE
+---------------
+AI should not decide the complete business result by itself.
+
+AI = perception
+Rules = business logic
+
+Example:
+
+AI:
+fire extinguisher detected
+
+Rule:
+fire extinguisher must be present and accessible
+
+Result:
+PASS
+
+Another example:
+
+AI:
+fire extinguisher detected
+
+Context:
+access area blocked
+
+Rule:
+required equipment accessible = false
+
+Result:
+FAIL
+
+16. RESULT TYPES
+----------------
+Support:
+PASS
+FAIL
+WARNING
+NOT_DETECTED
+NEEDS_REVIEW
+
+Examples:
+PASS = requirement satisfied.
+FAIL = requirement violated.
+WARNING = possible issue.
+NOT_DETECTED = required object not found.
+NEEDS_REVIEW = insufficient confidence/context.
+
+17. CONFIDENCE HANDLING
+-----------------------
+Do not blindly trust AI.
+
+High confidence:
+Potential automatic verification.
+
+Medium confidence:
+WARNING / NEEDS_REVIEW.
+
+Low confidence:
+NOT_DETECTED / NEEDS_REVIEW.
+
+The final product should communicate uncertainty rather than pretend AI is perfect.
+
+18. EVIDENCE SYSTEM
+-------------------
+Each verification should eventually produce evidence.
+
+Possible evidence:
+- Camera frame
+- Detection box
+- Detected object
+- Confidence
+- Rule evaluated
+- Result
+- Timestamp
+- Before/after state
+
+Example:
+CHECK: Clear Pathway
+RESULT: FAIL
+EVIDENCE: Captured frame
+OBSERVATION: Obstruction detected
+ACTION: Issue marked for correction
+RE-SCAN: PASS
+
+19. REPORT SYSTEM
+-----------------
+The report should convert the technical process into a business record.
+
+Example:
+
+VERIFYX VERIFICATION REPORT
+
+Profile:
+Workplace Safety
+
+Status:
+VERIFIED
+
+Requirements:
+5
+
+Passed:
+5
+
+Issues:
+0
+
+Checks:
+Fire Extinguisher — PASS
+Emergency Exit — PASS
+Safety Sign — PASS
+Clear Pathway — PASS
+Required Equipment — PASS
+
+Evidence:
+Attached
+
+Verification:
+Initial scan → Issue → Fix → Re-scan → PASS
+
+20. OFFLINE-FIRST PRINCIPLE
+---------------------------
+Core verification should not require internet.
+
+Benefits:
+- Works with poor connectivity
+- Less data transfer
+- Lower latency
+- Better reliability
+- More privacy
+- Local inference
+
+Core local functions:
+Camera
+AI
+Rules
+Basic evidence
+
+Internet should be optional for later workflows.
+
+21. PRIVACY PRINCIPLE
+---------------------
+Do not make the core verification dependent on sending camera footage to a remote AI API.
+
+Preferred:
+Camera
+ ↓
+Local processing
+ ↓
+Local result
+
+Use accurate claims such as:
+"Designed for local/offline verification."
+
+Do not claim "100% private" unless the implementation actually guarantees it.
+
+22. OFFICE KIT ROLE
+-------------------
+Office Kit should solve a real handoff problem.
+
+Potential workflow:
+
+PHONE
+ ↓
+Verification
+ ↓
+Evidence / Report
+ ↓
+Office Kit
+ ↓
+Laptop
+ ↓
+Supervisor / business workflow
+
+Do not force Office Kit into the product only for scoring.
+
+23. iQOO / HACKATHON STRATEGY
+----------------------------
+The final product must run on the iQOO phone.
+
+The phone matters because:
+- Camera captures the physical environment.
+- Local AI can process the scene.
+- Mobile is the primary interaction.
+- Local processing can reduce latency.
+- The phone becomes the inspection tool.
+
+Use public developer-accessible capabilities.
+
+Do not depend on undocumented/private iQOO APIs.
+Do not claim private hardware access unless it is actually available.
+
+24. AR STRATEGY
+--------------
+AR is an enhancement, not the foundation.
+
+Core verification must work without AR.
+
+Possible AR later:
+- Anchor detected objects
+- Show PASS/FAIL labels
+- Highlight obstructed areas
+- Guide employee toward an issue
+- Show verification zones
+- Show FIXED state after re-scan
+
+If AR becomes unstable or consumes too much time, remove it from the core flow.
+
+25. NO EXTERNAL HARDWARE
+------------------------
+The project should not require:
+- Arduino
+- Raspberry Pi
+- External sensors
+- Special cameras
+- Custom electronics
+- Miniature physical props
+
+The phone should be the main interface and hardware.
+
+26. BUSINESS VALUE
+------------------
+Potential value:
+- Faster inspections
+- More consistent verification
+- Reduced manual comparison
+- Better evidence
+- Easier issue tracking
+- Faster re-verification
+- Structured reporting
+- Offline operation
+
+The product should be framed around an operational problem, not "AI for AI's sake."
+
+27. CORE DIFFERENTIATOR
+-----------------------
+The concept is NOT simply:
+"AI looks at a camera."
+
+The important workflow is:
+
+PHYSICAL WORLD
+      ↓
+OBSERVE
+      ↓
+COMPARE AGAINST STANDARD
+      ↓
+IDENTIFY DEVIATION
+      ↓
+TAKE ACTION
+      ↓
+VERIFY AGAIN
+
+The product closes the loop.
+
+Detection alone is not the final product.
+
+Verification + correction + re-verification is the product loop.
+
+28. WHAT WE MUST AVOID
+----------------------
+Do not turn VERIFYX into:
+- Generic chatbot
+- Generic image analyzer
+- Generic OCR app
+- Generic object detector
+- Generic dashboard
+- Generic checklist app
+- Cloud-only AI
+- Fake AI demo
+- Fake camera detection
+- Overcomplicated enterprise software
+
+AI must support a concrete verification workflow.
+
+29. DEVELOPMENT RULE
+--------------------
+One step at a time.
+
+For each stage:
+1. Create file.
+2. Connect it.
+3. Run it.
+4. Test it.
+5. Fix errors.
+6. Move to the next stage.
+
+Do not continue while the current stage is broken.
+
+30. CURRENT ROADMAP
+-------------------
+STEP 1  Home                     DONE
+STEP 2  Verification Setup      DONE
+STEP 3  Live Camera              DONE
+STEP 4  Verification Results     DONE
+STEP 5  Issue Details            NEXT
+STEP 6  Fix Issue
+STEP 7  Re-scan
+STEP 8  Final 5/5 Verification
+STEP 9  Evidence
+STEP 10 Report
+STEP 11 Real Local AI
+STEP 12 Real Rules Engine
+STEP 13 Android
+STEP 14 AR Enhancement
+STEP 15 Office Kit Workflow
+STEP 16 Performance Optimization
+STEP 17 UI/UX Redesign
+STEP 18 Demo Video
+STEP 19 PPT
+STEP 20 Hackathon-ready Build
+
+31. DEFINITION OF DONE
+----------------------
+The prototype is functionally complete when a user can:
+
+1. Open VERIFYX.
+2. Start verification.
+3. Select workplace safety.
+4. Start camera.
+5. Scan environment.
+6. Receive verification results.
+7. See an issue.
+8. Understand the issue.
+9. Fix the issue.
+10. Re-scan.
+11. Get 5/5 verified.
+12. Generate evidence/report.
+13. Transfer/share the result.
+
+After the product flow is complete, simulated detection is replaced with real local AI.
+
+32. FINAL DEMO STORY
+-------------------
+Employee enters a workplace.
+
+Open VERIFYX.
+
+START VERIFICATION
+
+Select:
+WORKPLACE SAFETY
+
+START SCAN
+
+Phone camera scans.
+
+VERIFYX detects:
+
+✓ Fire extinguisher
+✓ Safety sign
+✓ Emergency exit
+✓ Required equipment
+⚠ Clear pathway obstructed
+
+VERIFYX:
+ONE ISSUE FOUND
+
+Employee fixes the obstruction.
+
+Press:
+RE-SCAN
+
+VERIFYX checks again.
+
+Result:
+5 / 5 VERIFIED
+
+Then:
+GENERATE REPORT
+
+Report/evidence can be transferred to a laptop using Office Kit.
+
+The demo should communicate the value proposition without a long explanation.
+
+33. FINAL PRODUCT STATEMENT
+---------------------------
+VERIFYX is a phone-first, offline-first AI verification system that helps businesses compare digital standards with the physical world, identify deviations, guide corrective action, and verify the fix.
+
+Simple interaction:
+
+POINT.
+VERIFY.
+FIX.
+VERIFY AGAIN.
+
+34. HACKATHON END GOAL
+----------------------
+The final hackathon version should demonstrate:
+
+1. Real phone camera
+2. Local AI inference
+3. Meaningful computer vision
+4. Rule-based verification
+5. Physical-world interaction
+6. Issue detection
+7. Fix-and-reverify loop
+8. Evidence generation
+9. Office Kit workflow
+10. Strong phone-first UX
+11. Offline capability
+12. Reliable live demo
+
+The priority is not maximum feature count.
+
+The priority is:
+A working, believable, technically deep product with a simple and memorable interaction.
+
+35. CURRENT IMMEDIATE TASK
+--------------------------
+Build:
+
+IssueDetails.tsx
+
+Then connect:
+
+VerificationResults
+        ↓
+VIEW ISSUE
+        ↓
+IssueDetails
+        ↓
+FIX ISSUE
+        ↓
+Re-scan
+        ↓
+5 / 5 VERIFIED
+
+36. ONE-LINE SUMMARY
+--------------------
+VERIFYX turns a smartphone into an AI-powered physical-world verification tool that detects deviations from workplace standards, helps employees fix them, and verifies the correction.
+
+END OF VERIFYX MASTER DOCUMENT

@@ -1,0 +1,13 @@
+# VERIFYX Staged Indoor Objects Dataset Manifest
+path: C:/Users/heman/OneDrive/Desktop/VERIFYX/data/staging/indoor_objects
+train: images/train
+val: images/val
+
+nc: 5
+
+names:
+  0: fire_extinguisher
+  1: emergency_exit_sign
+  2: hazard_sign
+  3: box_carton
+  4: chair_furniture

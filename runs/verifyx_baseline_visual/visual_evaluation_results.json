@@ -1,0 +1,1738 @@
+[
+  {
+    "image": "test_c0_fe_00_IMG20231229165718_jpg.rf..jpg",
+    "target_class_id": 0,
+    "target_class_name": "fire_extinguisher",
+    "note": "Held-out test split from Mendeley: test/IMG20231229165718_jpg.rf.69f3cd32534e0b49656f2b784c61f778.jpg",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_c0_fe_01_IMG20250302163053_jpg.rf..jpg",
+    "target_class_id": 0,
+    "target_class_name": "fire_extinguisher",
+    "note": "Held-out test split from Mendeley: test/IMG20250302163053_jpg.rf.1cf7564dfc4fbb9ca3227a1d75e84576.jpg",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_c0_fe_02_IMG20250302164159_jpg.rf..jpg",
+    "target_class_id": 0,
+    "target_class_name": "fire_extinguisher",
+    "note": "Held-out test split from Mendeley: test/IMG20250302164159_jpg.rf.4aeffad637fe98e67d6d0384753acca2.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.6685183048248291,
+        "bbox": [
+          246.8,
+          392.7,
+          467.3,
+          640.0
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.6685183048248291,
+        "bbox": [
+          246.8,
+          392.7,
+          467.3,
+          640.0
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c0_fe_03_IMG20250302170548_jpg.rf..jpg",
+    "target_class_id": 0,
+    "target_class_name": "fire_extinguisher",
+    "note": "Held-out test split from Mendeley: test/IMG20250302170548_jpg.rf.c0353fbed579f33ed25d6eec375ecf3a.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.8003013134002686,
+        "bbox": [
+          187.2,
+          225.3,
+          566.3,
+          640.0
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.7040855288505554,
+        "bbox": [
+          279.1,
+          522.0,
+          498.0,
+          639.5
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.6829991936683655,
+        "bbox": [
+          552.6,
+          134.9,
+          640.0,
+          295.0
+        ]
+      },
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.259275883436203,
+        "bbox": [
+          260.7,
+          0.0,
+          407.7,
+          60.8
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.8003013134002686,
+        "bbox": [
+          187.2,
+          225.3,
+          566.3,
+          640.0
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.7040855288505554,
+        "bbox": [
+          279.1,
+          522.0,
+          498.0,
+          639.5
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.6829991936683655,
+        "bbox": [
+          552.6,
+          134.9,
+          640.0,
+          295.0
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c0_fe_04_IMG20250302171534_jpg.rf..jpg",
+    "target_class_id": 0,
+    "target_class_name": "fire_extinguisher",
+    "note": "Held-out test split from Mendeley: test/IMG20250302171534_jpg.rf.699f0637f295bee906d02d83351401ad.jpg",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_c0_fe_05_IMG20250302171851_jpg.rf..jpg",
+    "target_class_id": 0,
+    "target_class_name": "fire_extinguisher",
+    "note": "Held-out test split from Mendeley: test/IMG20250302171851_jpg.rf.05a3581eb3e106ce99507134e2661739.jpg",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_c0_fe_06_IMG20250303141349_jpg.rf..jpg",
+    "target_class_id": 0,
+    "target_class_name": "fire_extinguisher",
+    "note": "Held-out test split from Mendeley: test/IMG20250303141349_jpg.rf.78af0091e704043261900c64babf312d.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 0,
+        "class_name": "fire_extinguisher",
+        "confidence": 0.8659092783927917,
+        "bbox": [
+          204.8,
+          302.3,
+          239.7,
+          370.3
+        ]
+      },
+      {
+        "class_id": 0,
+        "class_name": "fire_extinguisher",
+        "confidence": 0.3037349283695221,
+        "bbox": [
+          62.5,
+          210.1,
+          110.9,
+          253.9
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 0,
+        "class_name": "fire_extinguisher",
+        "confidence": 0.8659092783927917,
+        "bbox": [
+          204.8,
+          302.3,
+          239.7,
+          370.3
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c0_fe_07_IMG20250305121643_jpg.rf..jpg",
+    "target_class_id": 0,
+    "target_class_name": "fire_extinguisher",
+    "note": "Held-out test split from Mendeley: test/IMG20250305121643_jpg.rf.a4b291d47d3d09cbc7d61ac934e6e46f.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 0,
+        "class_name": "fire_extinguisher",
+        "confidence": 0.7584313154220581,
+        "bbox": [
+          0.2,
+          39.6,
+          64.6,
+          99.5
+        ]
+      },
+      {
+        "class_id": 0,
+        "class_name": "fire_extinguisher",
+        "confidence": 0.34834718704223633,
+        "bbox": [
+          0.1,
+          222.2,
+          74.0,
+          329.8
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 0,
+        "class_name": "fire_extinguisher",
+        "confidence": 0.7584313154220581,
+        "bbox": [
+          0.2,
+          39.6,
+          64.6,
+          99.5
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c1_exit_00_02aeff1f3j9444d64fc9d1f44.jpg",
+    "target_class_id": 1,
+    "target_class_name": "emergency_exit_sign",
+    "note": "Held-out test split from ExitSigns: 02aeff1f3j9444d64fc9d1f4452c129b_jpeg.rf.70bd0876abaa3430c272dd557cc7e441.jpg",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_c1_exit_01_84ef22776q9f5695f52e6075b.jpg",
+    "target_class_id": 1,
+    "target_class_name": "emergency_exit_sign",
+    "note": "Held-out test split from ExitSigns: 84ef22776q9f5695f52e6075b468d4dd_jpeg.rf.16975a56d375750c19de2a4f1d16b821.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.7379161715507507,
+        "bbox": [
+          334.8,
+          920.3,
+          2855.1,
+          2082.5
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.7379161715507507,
+        "bbox": [
+          334.8,
+          920.3,
+          2855.1,
+          2082.5
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c1_exit_02_dfbf659cdk6ac53e9151e70b8.jpg",
+    "target_class_id": 1,
+    "target_class_name": "emergency_exit_sign",
+    "note": "Held-out test split from ExitSigns: dfbf659cdk6ac53e9151e70b88538167_jpeg.rf.71bd5bfc92d93eec12173a4553660176.jpg",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_c1_exit_03_Exit_168_jpeg.rf.a9ae10fe.jpg",
+    "target_class_id": 1,
+    "target_class_name": "emergency_exit_sign",
+    "note": "Held-out test split from ExitSigns: Exit_168_jpeg.rf.a9ae10fe5e484594855d6393f62687f4.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.9319045543670654,
+        "bbox": [
+          90.8,
+          1.7,
+          165.0,
+          260.0
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.9319045543670654,
+        "bbox": [
+          90.8,
+          1.7,
+          165.0,
+          260.0
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c1_exit_04_Exit_201_jpeg.rf.2b4b1d19.jpg",
+    "target_class_id": 1,
+    "target_class_name": "emergency_exit_sign",
+    "note": "Held-out test split from ExitSigns: Exit_201_jpeg.rf.2b4b1d192a223369ba996331e0513977.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.9064546823501587,
+        "bbox": [
+          0.0,
+          79.5,
+          259.5,
+          177.1
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.9064546823501587,
+        "bbox": [
+          0.0,
+          79.5,
+          259.5,
+          177.1
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c1_exit_05_Exit_2_jpg.rf.4ec5a98db0b.jpg",
+    "target_class_id": 1,
+    "target_class_name": "emergency_exit_sign",
+    "note": "Held-out test split from ExitSigns: Exit_2_jpg.rf.4ec5a98db0b9670f56ca4bc725a38081.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.877678394317627,
+        "bbox": [
+          68.9,
+          50.6,
+          406.9,
+          667.1
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.877678394317627,
+        "bbox": [
+          68.9,
+          50.6,
+          406.9,
+          667.1
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c1_exit_06_Exit_87_jpeg.rf.9f9b4bbf4.jpg",
+    "target_class_id": 1,
+    "target_class_name": "emergency_exit_sign",
+    "note": "Held-out test split from ExitSigns: Exit_87_jpeg.rf.9f9b4bbf438e263bba8a7e34c1eefa50.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.8397843241691589,
+        "bbox": [
+          0.5,
+          0.0,
+          309.0,
+          163.0
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.8397843241691589,
+        "bbox": [
+          0.5,
+          0.0,
+          309.0,
+          163.0
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c1_exit_07_frame_s3_643_jpg.rf.242d0.jpg",
+    "target_class_id": 1,
+    "target_class_name": "emergency_exit_sign",
+    "note": "Held-out test split from ExitSigns: frame_s3_643_jpg.rf.242d00d4c555d0aba03a5b7e4d5fac87.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.7814013957977295,
+        "bbox": [
+          154.9,
+          51.0,
+          229.1,
+          184.4
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 1,
+        "class_name": "emergency_exit_sign",
+        "confidence": 0.7814013957977295,
+        "bbox": [
+          154.9,
+          51.0,
+          229.1,
+          184.4
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c2_hazard_00_-2-_jpg.rf.58dd8856b65351.jpg",
+    "target_class_id": 2,
+    "target_class_name": "hazard_sign",
+    "note": "Held-out test split from WetFloor: -2-_jpg.rf.58dd8856b65351b003987450fed4b870.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.7729233503341675,
+        "bbox": [
+          138.8,
+          10.4,
+          640.0,
+          640.0
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.7729233503341675,
+        "bbox": [
+          138.8,
+          10.4,
+          640.0,
+          640.0
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c2_hazard_01_2023-05-30-115451_3_jpg.r.jpg",
+    "target_class_id": 2,
+    "target_class_name": "hazard_sign",
+    "note": "Held-out test split from WetFloor: 2023-05-30-115451_3_jpg.rf.174729c47cf0d1c5bbec00f5cafe40b5.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.7989481687545776,
+        "bbox": [
+          0.0,
+          260.9,
+          560.1,
+          638.5
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.7989481687545776,
+        "bbox": [
+          0.0,
+          260.9,
+          560.1,
+          638.5
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c2_hazard_02_2023-05-30-120041_2_jpg.r.jpg",
+    "target_class_id": 2,
+    "target_class_name": "hazard_sign",
+    "note": "Held-out test split from WetFloor: 2023-05-30-120041_2_jpg.rf.bcd4a99987076cd9363cc2744b2c664f.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.8363837599754333,
+        "bbox": [
+          234.9,
+          5.5,
+          467.4,
+          584.9
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.8363837599754333,
+        "bbox": [
+          234.9,
+          5.5,
+          467.4,
+          584.9
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c2_hazard_03_images-1-_jpg.rf.21d32e1a.jpg",
+    "target_class_id": 2,
+    "target_class_name": "hazard_sign",
+    "note": "Held-out test split from WetFloor: images-1-_jpg.rf.21d32e1abac814ea5190af8a5c35873c.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.8748335838317871,
+        "bbox": [
+          73.8,
+          1.0,
+          599.3,
+          639.4
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.8748335838317871,
+        "bbox": [
+          73.8,
+          1.0,
+          599.3,
+          639.4
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c2_hazard_04_images-38-_jpg.rf.ac8e168.jpg",
+    "target_class_id": 2,
+    "target_class_name": "hazard_sign",
+    "note": "Held-out test split from WetFloor: images-38-_jpg.rf.ac8e168be8db3b0a00e6ee0f54e0c5a9.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.8553967475891113,
+        "bbox": [
+          57.3,
+          0.0,
+          621.0,
+          640.0
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.8553967475891113,
+        "bbox": [
+          57.3,
+          0.0,
+          621.0,
+          640.0
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c2_hazard_05_images-66-_jpg.rf.1e44833.jpg",
+    "target_class_id": 2,
+    "target_class_name": "hazard_sign",
+    "note": "Held-out test split from WetFloor: images-66-_jpg.rf.1e44833cb03f63b3dfd8701231de4a70.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.8819569945335388,
+        "bbox": [
+          18.8,
+          0.0,
+          623.6,
+          638.5
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.8819569945335388,
+        "bbox": [
+          18.8,
+          0.0,
+          623.6,
+          638.5
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c2_hazard_06_istockphoto-618546300-612.jpg",
+    "target_class_id": 2,
+    "target_class_name": "hazard_sign",
+    "note": "Held-out test split from WetFloor: istockphoto-618546300-612x612_jpg.rf.8c53de9efbc6c049140cb7676e9b4aa9.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.827003002166748,
+        "bbox": [
+          339.8,
+          84.4,
+          595.9,
+          544.8
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.827003002166748,
+        "bbox": [
+          339.8,
+          84.4,
+          595.9,
+          544.8
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c2_hazard_07_wet-floor-sign_111_jpeg.r.jpg",
+    "target_class_id": 2,
+    "target_class_name": "hazard_sign",
+    "note": "Held-out test split from WetFloor: wet-floor-sign_111_jpeg.rf.4503368647942524bbec13f0b24eb1d4.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.9232112169265747,
+        "bbox": [
+          3.6,
+          0.0,
+          640.0,
+          636.0
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 2,
+        "class_name": "hazard_sign",
+        "confidence": 0.9232112169265747,
+        "bbox": [
+          3.6,
+          0.0,
+          640.0,
+          636.0
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c3_box_00_0_wugu20230215_png_jpg.rf.jpg",
+    "target_class_id": 3,
+    "target_class_name": "box_carton",
+    "note": "Held-out uningested from Package-Seg: 0_wugu20230215_png_jpg.rf.d8bd598beb4476657787fbaf4b4b6bb9.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.9257946610450745,
+        "bbox": [
+          409.0,
+          315.4,
+          480.6,
+          464.9
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8643082976341248,
+        "bbox": [
+          497.0,
+          510.2,
+          566.7,
+          627.4
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.788029134273529,
+        "bbox": [
+          153.5,
+          221.6,
+          219.5,
+          367.6
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.5973535180091858,
+        "bbox": [
+          369.2,
+          0.0,
+          443.8,
+          97.3
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.3147517442703247,
+        "bbox": [
+          499.5,
+          117.3,
+          563.7,
+          223.5
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.27311596274375916,
+        "bbox": [
+          347.0,
+          34.9,
+          384.6,
+          106.1
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.9257946610450745,
+        "bbox": [
+          409.0,
+          315.4,
+          480.6,
+          464.9
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8643082976341248,
+        "bbox": [
+          497.0,
+          510.2,
+          566.7,
+          627.4
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.788029134273529,
+        "bbox": [
+          153.5,
+          221.6,
+          219.5,
+          367.6
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.5973535180091858,
+        "bbox": [
+          369.2,
+          0.0,
+          443.8,
+          97.3
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c3_box_01_244_zl20230718_001_png_jp.jpg",
+    "target_class_id": 3,
+    "target_class_name": "box_carton",
+    "note": "Held-out uningested from Package-Seg: 244_zl20230718_001_png_jpg.rf.88c0b2de8fea2037c7addd6e0bf46099.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8588712215423584,
+        "bbox": [
+          261.9,
+          452.2,
+          317.3,
+          573.0
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.7994271516799927,
+        "bbox": [
+          47.2,
+          152.7,
+          99.8,
+          240.1
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.750372052192688,
+        "bbox": [
+          99.7,
+          286.8,
+          203.2,
+          455.3
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.5597659945487976,
+        "bbox": [
+          94.8,
+          211.0,
+          199.5,
+          457.6
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.42620474100112915,
+        "bbox": [
+          106.9,
+          154.6,
+          170.0,
+          291.8
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.38809362053871155,
+        "bbox": [
+          83.3,
+          145.9,
+          188.3,
+          460.5
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.36014965176582336,
+        "bbox": [
+          79.7,
+          153.3,
+          170.1,
+          350.4
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.27421772480010986,
+        "bbox": [
+          249.9,
+          212.2,
+          287.4,
+          301.0
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8588712215423584,
+        "bbox": [
+          261.9,
+          452.2,
+          317.3,
+          573.0
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.7994271516799927,
+        "bbox": [
+          47.2,
+          152.7,
+          99.8,
+          240.1
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.750372052192688,
+        "bbox": [
+          99.7,
+          286.8,
+          203.2,
+          455.3
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.5597659945487976,
+        "bbox": [
+          94.8,
+          211.0,
+          199.5,
+          457.6
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c3_box_02_632_zl20230718_002_png_jp.jpg",
+    "target_class_id": 3,
+    "target_class_name": "box_carton",
+    "note": "Held-out uningested from Package-Seg: 632_zl20230718_002_png_jpg.rf.2e29248cecff0595b37a315277fb19a0.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8675365447998047,
+        "bbox": [
+          409.3,
+          200.4,
+          486.3,
+          344.7
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.843281626701355,
+        "bbox": [
+          242.7,
+          231.4,
+          349.5,
+          432.3
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8191252946853638,
+        "bbox": [
+          55.0,
+          120.1,
+          179.2,
+          329.7
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.3493918180465698,
+        "bbox": [
+          551.4,
+          49.3,
+          584.4,
+          107.1
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.3453294634819031,
+        "bbox": [
+          465.7,
+          165.4,
+          504.7,
+          239.9
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.26245999336242676,
+        "bbox": [
+          563.1,
+          0.0,
+          621.2,
+          75.0
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8675365447998047,
+        "bbox": [
+          409.3,
+          200.4,
+          486.3,
+          344.7
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.843281626701355,
+        "bbox": [
+          242.7,
+          231.4,
+          349.5,
+          432.3
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8191252946853638,
+        "bbox": [
+          55.0,
+          120.1,
+          179.2,
+          329.7
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c3_box_03_frame_110_jpg.rf.8d8feede.jpg",
+    "target_class_id": 3,
+    "target_class_name": "box_carton",
+    "note": "Held-out uningested from Package-Seg: frame_110_jpg.rf.8d8feede6aebf4632d0dac1688cebb94.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.7327834963798523,
+        "bbox": [
+          129.9,
+          259.4,
+          319.7,
+          497.5
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.728475034236908,
+        "bbox": [
+          543.0,
+          83.1,
+          635.4,
+          238.4
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.5320352911949158,
+        "bbox": [
+          433.4,
+          135.6,
+          579.8,
+          298.9
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.2927626371383667,
+        "bbox": [
+          144.2,
+          261.5,
+          295.2,
+          455.1
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.7327834963798523,
+        "bbox": [
+          129.9,
+          259.4,
+          319.7,
+          497.5
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.728475034236908,
+        "bbox": [
+          543.0,
+          83.1,
+          635.4,
+          238.4
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.5320352911949158,
+        "bbox": [
+          433.4,
+          135.6,
+          579.8,
+          298.9
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c3_box_04_frame_171_jpg.rf.1dc04e9b.jpg",
+    "target_class_id": 3,
+    "target_class_name": "box_carton",
+    "note": "Held-out uningested from Package-Seg: frame_171_jpg.rf.1dc04e9b89413715be09a415e35d41b1.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.41859525442123413,
+        "bbox": [
+          192.8,
+          358.2,
+          255.8,
+          476.0
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.40169546008110046,
+        "bbox": [
+          321.1,
+          125.2,
+          372.9,
+          205.2
+        ]
+      }
+    ],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_c3_box_05_frame_243_jpg.rf.436877eb.jpg",
+    "target_class_id": 3,
+    "target_class_name": "box_carton",
+    "note": "Held-out uningested from Package-Seg: frame_243_jpg.rf.436877eb3d54685c76c28fcef042a6d1.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.9492272734642029,
+        "bbox": [
+          380.9,
+          122.8,
+          477.5,
+          345.0
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8339182734489441,
+        "bbox": [
+          505.3,
+          241.3,
+          609.6,
+          406.6
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.798520028591156,
+        "bbox": [
+          208.2,
+          295.5,
+          280.9,
+          420.7
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.6164297461509705,
+        "bbox": [
+          107.8,
+          217.8,
+          209.4,
+          389.2
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.3255417048931122,
+        "bbox": [
+          455.2,
+          284.3,
+          495.3,
+          369.8
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.9492272734642029,
+        "bbox": [
+          380.9,
+          122.8,
+          477.5,
+          345.0
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8339182734489441,
+        "bbox": [
+          505.3,
+          241.3,
+          609.6,
+          406.6
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.798520028591156,
+        "bbox": [
+          208.2,
+          295.5,
+          280.9,
+          420.7
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.6164297461509705,
+        "bbox": [
+          107.8,
+          217.8,
+          209.4,
+          389.2
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c3_box_06_frame_30_jpg.rf.139440306.jpg",
+    "target_class_id": 3,
+    "target_class_name": "box_carton",
+    "note": "Held-out uningested from Package-Seg: frame_30_jpg.rf.1394403065a8a699ecbf06c85671e8db.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8354935050010681,
+        "bbox": [
+          1.0,
+          186.2,
+          92.1,
+          401.9
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.7974766492843628,
+        "bbox": [
+          568.6,
+          3.2,
+          640.0,
+          354.2
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.8354935050010681,
+        "bbox": [
+          1.0,
+          186.2,
+          92.1,
+          401.9
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.7974766492843628,
+        "bbox": [
+          568.6,
+          3.2,
+          640.0,
+          354.2
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c3_box_07_frame_40788_jpg.rf.cb54ca.jpg",
+    "target_class_id": 3,
+    "target_class_name": "box_carton",
+    "note": "Held-out uningested from Package-Seg: frame_40788_jpg.rf.cb54cac4fecf441e0c21ce0356b7fe3d.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.7420027852058411,
+        "bbox": [
+          11.1,
+          203.2,
+          112.1,
+          452.9
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.6461997032165527,
+        "bbox": [
+          613.9,
+          46.5,
+          640.0,
+          273.9
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.7420027852058411,
+        "bbox": [
+          11.1,
+          203.2,
+          112.1,
+          452.9
+        ]
+      },
+      {
+        "class_id": 3,
+        "class_name": "box_carton",
+        "confidence": 0.6461997032165527,
+        "bbox": [
+          613.9,
+          46.5,
+          640.0,
+          273.9
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c4_chair_00_living_room_1001.jpg",
+    "target_class_id": 4,
+    "target_class_name": "chair_furniture",
+    "note": "Held-out uningested from HomeObjects-3K: living_room_1001.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.7496361136436462,
+        "bbox": [
+          558.0,
+          880.2,
+          1280.0,
+          1574.5
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.6493464708328247,
+        "bbox": [
+          402.9,
+          889.7,
+          1279.1,
+          1805.8
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.7496361136436462,
+        "bbox": [
+          558.0,
+          880.2,
+          1280.0,
+          1574.5
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.6493464708328247,
+        "bbox": [
+          402.9,
+          889.7,
+          1279.1,
+          1805.8
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c4_chair_01_living_room_1310.jpg",
+    "target_class_id": 4,
+    "target_class_name": "chair_furniture",
+    "note": "Held-out uningested from HomeObjects-3K: living_room_1310.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.346628874540329,
+        "bbox": [
+          885.2,
+          971.7,
+          1274.8,
+          1912.1
+        ]
+      }
+    ],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_c4_chair_02_living_room_1598.jpg",
+    "target_class_id": 4,
+    "target_class_name": "chair_furniture",
+    "note": "Held-out uningested from HomeObjects-3K: living_room_1598.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.551169753074646,
+        "bbox": [
+          724.5,
+          692.5,
+          1218.6,
+          1423.8
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.31358808279037476,
+        "bbox": [
+          251.2,
+          536.7,
+          678.3,
+          1376.7
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.551169753074646,
+        "bbox": [
+          724.5,
+          692.5,
+          1218.6,
+          1423.8
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c4_chair_03_living_room_1882.jpg",
+    "target_class_id": 4,
+    "target_class_name": "chair_furniture",
+    "note": "Held-out uningested from HomeObjects-3K: living_room_1882.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.37234458327293396,
+        "bbox": [
+          1026.1,
+          1175.6,
+          1440.0,
+          1908.5
+        ]
+      }
+    ],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_c4_chair_04_living_room_1p (325).jpg",
+    "target_class_id": 4,
+    "target_class_name": "chair_furniture",
+    "note": "Held-out uningested from HomeObjects-3K: living_room_1p (325).jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.5382120013237,
+        "bbox": [
+          626.0,
+          307.5,
+          703.7,
+          464.3
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.2689351439476013,
+        "bbox": [
+          764.9,
+          305.1,
+          860.5,
+          430.4
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.5382120013237,
+        "bbox": [
+          626.0,
+          307.5,
+          703.7,
+          464.3
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c4_chair_05_living_room_257.jpg",
+    "target_class_id": 4,
+    "target_class_name": "chair_furniture",
+    "note": "Held-out uningested from HomeObjects-3K: living_room_257.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.7362051010131836,
+        "bbox": [
+          613.8,
+          1201.5,
+          1256.1,
+          1652.9
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.7362051010131836,
+        "bbox": [
+          613.8,
+          1201.5,
+          1256.1,
+          1652.9
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c4_chair_06_living_room_61.jpg",
+    "target_class_id": 4,
+    "target_class_name": "chair_furniture",
+    "note": "Held-out uningested from HomeObjects-3K: living_room_61.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.7599380612373352,
+        "bbox": [
+          683.7,
+          900.7,
+          1264.7,
+          1909.9
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.5215843319892883,
+        "bbox": [
+          79.1,
+          1274.6,
+          684.6,
+          1915.6
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.3669343888759613,
+        "bbox": [
+          693.2,
+          1269.2,
+          1247.3,
+          1917.2
+        ]
+      }
+    ],
+    "predictions_conf50": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.7599380612373352,
+        "bbox": [
+          683.7,
+          900.7,
+          1264.7,
+          1909.9
+        ]
+      },
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.5215843319892883,
+        "bbox": [
+          79.1,
+          1274.6,
+          684.6,
+          1915.6
+        ]
+      }
+    ]
+  },
+  {
+    "image": "test_c4_chair_07_living_room_98.jpg",
+    "target_class_id": 4,
+    "target_class_name": "chair_furniture",
+    "note": "Held-out uningested from HomeObjects-3K: living_room_98.jpg",
+    "predictions_conf25": [
+      {
+        "class_id": 4,
+        "class_name": "chair_furniture",
+        "confidence": 0.45335543155670166,
+        "bbox": [
+          1093.4,
+          1159.9,
+          1455.1,
+          1718.2
+        ]
+      }
+    ],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_cneg_00_vx_neg_00250_negative_corridor_001.jpg",
+    "target_class_id": -1,
+    "target_class_name": "negative_corridor",
+    "note": "Clean hallway floor without safety objects",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_cneg_01_vx_neg_00251_negative_corridor_007.jpg",
+    "target_class_id": -1,
+    "target_class_name": "negative_corridor",
+    "note": "Clean hallway floor without safety objects",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_cneg_02_vx_neg_00252_negative_corridor_021.jpg",
+    "target_class_id": -1,
+    "target_class_name": "negative_corridor",
+    "note": "Clean hallway floor without safety objects",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  },
+  {
+    "image": "test_cneg_03_vx_neg_00253_negative_corridor_017.jpg",
+    "target_class_id": -1,
+    "target_class_name": "negative_corridor",
+    "note": "Clean hallway floor without safety objects",
+    "predictions_conf25": [],
+    "predictions_conf50": []
+  }
+]

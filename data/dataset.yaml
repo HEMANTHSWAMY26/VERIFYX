@@ -1,0 +1,27 @@
+# VERIFYX Safety Object Detection Dataset Manifest
+# YOLO11 formatted dataset configuration
+
+path: ../data  # dataset root dir (relative to execution directory or absolute)
+train: images/train
+val: images/val
+test: images/test  # optional
+
+# Number of classes
+nc: 5
+
+# Class names mapping
+names:
+  0: fire_extinguisher
+  1: emergency_exit_sign
+  2: hazard_sign
+  3: box_carton
+  4: chair_furniture
+
+# Sourcing & Ground Truth Protocol:
+# 0 (fire_extinguisher): Sourced from Mendeley Indoor Objects (CC BY 4.0, DOI: 10.17632/3ggxwf2vpr.2).
+# 1 (emergency_exit_sign): Sourced from Roboflow CC BY 4.0 exit signage (ExitSigns).
+# 2 (hazard_sign): Sourced from Roboflow CC BY 4.0 caution hazard signs (WetFloor).
+# 3 (box_carton): Sourced from open package asset (package-seg, AGPL-3.0).
+# 4 (chair_furniture): Sourced from HomeObjects-3K (AGPL-3.0) + Mendeley co-occurring chairs.
+# NOTE: 'clear_pathway' is deliberately omitted from model classes. Evaluated via spatial corridor rule.
+
