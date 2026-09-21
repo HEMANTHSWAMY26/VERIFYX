@@ -227,9 +227,9 @@
     top: 20%;
     left: 10%;
     right: 10%;
-    height: 2px;
-    background: #00ff9d;
-    box-shadow: 0 0 15px #00ff9d, 0 0 30px #00ff9d;
+    height: 1px;
+    background: rgba(0, 255, 157, 0.7);
+    box-shadow: 0 0 8px rgba(0, 255, 157, 0.4);
     animation: rescanLaser 1.4s ease-in-out infinite alternate;
 }
 

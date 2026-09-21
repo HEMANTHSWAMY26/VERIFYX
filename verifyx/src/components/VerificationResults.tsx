@@ -64,15 +64,15 @@ export default function VerificationResults({
                 </button>
 
                 <header className="results-header">
-                    <span>VERIFYX / CONFIDENCE-AWARE VERIFICATION</span>
+                    <span>VERIFYX / INSPECTION RESULTS</span>
                     <h1>
                         Verification
                         <br />
                         Complete.
                     </h1>
                     <p>
-                        The environment was inspected with local AI confidence evaluation against
-                        workplace safety reference standards.
+                        On-device AI inspected the environment against
+                        workplace safety standards.
                     </p>
                 </header>
 
@@ -256,7 +256,7 @@ export default function VerificationResults({
 
                     <button className="report-button" onClick={onReport}>
                         <FileText size={18} />
-                        GENERATE REPORT
+                        VIEW REPORT
                     </button>
                 </section>
             </div>

@@ -728,4 +728,134 @@
     color: #cbd5e1;
     border: 1px solid rgba(148, 163, 184, 0.4);
 }
+
+/* ─── DATASET DEMO BAR ─────────────────────────── */
+.demo-scenario-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 10px 14px;
+    background: #0a0e0d;
+    border: 1px solid #1c2622;
+    border-radius: 10px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.demo-scenario-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.demo-bar-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #00ff9d;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.demo-scenario-btn {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    background: #121a17;
+    border: 1px solid #202d28;
+    color: #92a19c;
+    transition: all 0.15s ease;
+    font-family: inherit;
+}
+
+.demo-scenario-btn.active {
+    background: rgba(0, 255, 157, 0.15);
+    border-color: rgba(0, 255, 157, 0.5);
+    color: #00ff9d;
+}
+
+.demo-scenario-btn:hover:not(.active) {
+    background: #1a2520;
+    border-color: #2d3f38;
+    color: #c5d0cc;
+}
+
+/* ─── VISION MODE BUTTON ────────────────────────── */
+.vision-mode-btn-demo {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #23312c;
+    background: #141d1a;
+    color: #a2b0ac;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+}
+
+.vision-mode-btn-demo.active {
+    background: rgba(0, 255, 157, 0.12);
+    border-color: rgba(0, 255, 157, 0.4);
+    color: #00ff9d;
+}
+
+.vision-mode-btn-demo:hover {
+    background: #1a2520;
+}
+
+.vision-mode-btn-devhud {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+    background: #1e293b;
+    color: #94a3b8;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+}
+
+.vision-mode-btn-devhud.active {
+    background: #0284c7;
+    border-color: #38bdf8;
+    color: #ffffff;
+}
+
+/* ─── LIVE HEADER OVERRIDES ─────────────────────── */
+.live-header h1 {
+    font-size: clamp(26px, 3.5vw, 36px);
+    letter-spacing: -0.03em;
+    font-weight: 800;
+    margin: 6px 0 0;
+}
+
+.live-header-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 580px) {
+    .live-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .live-header-controls {
+        gap: 8px;
+    }
+
+    .demo-scenario-bar {
+        padding: 8px 10px;
+    }
+}
 

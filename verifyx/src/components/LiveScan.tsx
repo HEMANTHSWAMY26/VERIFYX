@@ -328,10 +328,10 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
                         <h1>{isDemoMode ? "Dataset Evaluation Demo" : "Scan Environment"}</h1>
                     </div>
 
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                    <div className="live-header-controls">
                         {/* DATASET DEMO TOGGLE BUTTON */}
                         <button
-                            className="vision-mode-btn"
+                            className={`vision-mode-btn-demo${isDemoMode ? " active" : ""}`}
                             onClick={() => {
                                 if (isDemoMode) {
                                     setIsDemoMode(false);
@@ -339,11 +339,6 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
                                 } else {
                                     handleSelectDemoScenario("fe");
                                 }
-                            }}
-                            style={{
-                                background: isDemoMode ? "rgba(0, 255, 157, 0.15)" : "#141d1a",
-                                borderColor: isDemoMode ? "#00ff9d" : "#23312c",
-                                color: isDemoMode ? "#00ff9d" : "#a2b0ac",
                             }}
                         >
                             {isDemoMode ? "📷 SWITCH TO LIVE CAMERA" : "🧪 DATASET DEMO MODE"}
@@ -371,13 +366,8 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
                         </div>
 
                         <button
-                            className="vision-mode-btn"
+                            className={`vision-mode-btn-devhud${devHudOpen ? " active" : ""}`}
                             onClick={() => setDevHudOpen((prev) => !prev)}
-                            style={{
-                                background: devHudOpen ? "#0284c7" : "#1e293b",
-                                borderColor: devHudOpen ? "#38bdf8" : "#334155",
-                                color: devHudOpen ? "#ffffff" : "#94a3b8",
-                            }}
                             title="Toggle Developer Diagnostics & Engine Switcher"
                         >
                             {devHudOpen ? "HIDE DEV HUD" : "⚡ DEV HUD"}
@@ -391,40 +381,15 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
                 </header>
 
                 {/* DATASET DEMO SCENARIO SELECTION BAR */}
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: "8px",
-                        marginBottom: "16px",
-                        padding: "10px 14px",
-                        background: "#0a0e0d",
-                        border: "1px solid #1c2622",
-                        borderRadius: "10px",
-                        overflowX: "auto",
-                    }}
-                >
-                    <span style={{ fontSize: "11px", fontWeight: 700, color: "#00ff9d", letterSpacing: "0.08em", whiteSpace: "nowrap" }}>
-                        SELECT EVALUATION SCENARIO:
-                    </span>
+                <div className="demo-scenario-bar">
+                    <span className="demo-bar-label">EVALUATION SCENARIO:</span>
                     {datasetScenarios.map((sc) => {
                         const isSelected = isDemoMode && demoScenario === sc.id;
                         return (
                             <button
                                 key={sc.id}
+                                className={`demo-scenario-btn${isSelected ? " active" : ""}`}
                                 onClick={() => handleSelectDemoScenario(sc.id as any)}
-                                style={{
-                                    padding: "6px 12px",
-                                    borderRadius: "6px",
-                                    fontSize: "11px",
-                                    fontWeight: 700,
-                                    cursor: "pointer",
-                                    whiteSpace: "nowrap",
-                                    background: isSelected ? "rgba(0, 255, 157, 0.2)" : "#121a17",
-                                    border: isSelected ? "1px solid #00ff9d" : "1px solid #202d28",
-                                    color: isSelected ? "#00ff9d" : "#92a19c",
-                                    transition: "all 0.15s ease",
-                                }}
                             >
                                 {sc.label}
                             </button>
