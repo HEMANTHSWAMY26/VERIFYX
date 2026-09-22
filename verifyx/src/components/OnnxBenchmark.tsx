@@ -3,7 +3,7 @@ import * as ort from "onnxruntime-web";
 import "./OnnxBenchmark.css";
 
 // Configure WASM paths
-ort.env.wasm.wasmPaths = "/wasm/";
+ort.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/";
 ort.env.wasm.numThreads = 1; // Single-thread WASM for consistent baseline
 
 interface Detection {

@@ -128,8 +128,9 @@ export class CustomYoloAdapter implements InferenceAdapter {
         try {
             console.log(`[CustomYoloAdapter] Loading custom YOLO11n ONNX model from: ${this._modelPath}`);
 
-            // Configure WASM paths
-            ort.env.wasm.wasmPaths = "/wasm/";
+            // Configure WASM paths (CDN first to prevent Vite dev server from intercepting public .mjs as source imports)
+            const cdnWasmPath = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/";
+            ort.env.wasm.wasmPaths = cdnWasmPath;
             ort.env.wasm.numThreads = 1;
 
             // Check if model file exists before attempting create to give clear error
@@ -138,17 +139,15 @@ export class CustomYoloAdapter implements InferenceAdapter {
                 throw new Error(`ONNX model weights not found at ${this._modelPath} (HTTP ${headCheck?.status || "Network Error"})`);
             }
 
-            // Create InferenceSession with WASM backend (local /wasm/ first, CDN fallback)
+            // Create InferenceSession with WASM backend
             try {
-                ort.env.wasm.wasmPaths = "/wasm/";
-                ort.env.wasm.numThreads = 1;
                 this._session = await ort.InferenceSession.create(this._modelPath, {
                     executionProviders: ["wasm"],
                     graphOptimizationLevel: "all",
                 });
-            } catch (localWasmErr) {
-                console.warn("[CustomYoloAdapter] Local /wasm/ initialization failed, attempting CDN fallback:", localWasmErr);
-                ort.env.wasm.wasmPaths = "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/";
+            } catch (cdnErr) {
+                console.warn("[CustomYoloAdapter] CDN WASM initialization failed, attempting local /wasm/ fallback:", cdnErr);
+                ort.env.wasm.wasmPaths = "/wasm/";
                 ort.env.wasm.numThreads = 1;
                 this._session = await ort.InferenceSession.create(this._modelPath, {
                     executionProviders: ["wasm"],
