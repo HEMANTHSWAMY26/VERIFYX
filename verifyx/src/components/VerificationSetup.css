@@ -1,204 +1,408 @@
+/* ═══════════════════════════════════════════════════════════════════
+   VERIFICATION SETUP — ELITE PRODUCT UI/UX 2.0
+   ═══════════════════════════════════════════════════════════════════ */
+
 .setup-page {
     min-height: 100vh;
     background: #050707;
-    color: #f4f7f5;
-    padding: 32px 24px;
+    color: #f7f9f8;
+    padding: 36px 24px 60px;
+    display: flex;
+    flex-direction: column;
 }
 
 .setup-container {
-    width: min(900px, 100%);
+    max-width: 880px;
+    width: 100%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
 }
 
+/* ─── BACK BUTTON ──────────────────────────────────────────────────── */
 .back-button {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 8px;
     background: transparent;
     border: none;
-    color: #8d9692;
-    font-size: 14px;
+    color: #7d8985;
+    font-size: 13px;
+    font-weight: 600;
     cursor: pointer;
-    padding: 8px 0;
-    transition: color 0.2s ease;
+    padding: 6px 0;
+    transition: color 0.18s ease;
+    align-self: flex-start;
 }
 
 .back-button:hover {
-    color: #00ff9d;
+    color: #f7f9f8;
 }
 
+/* ─── SETUP HEADER ─────────────────────────────────────────────────── */
 .setup-header {
-    margin-top: 45px;
-    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.setup-eyebrow,
-.section-label {
+.setup-eyebrow-line {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.eyebrow-accent-tag {
     color: #00ff9d;
-    font-size: 11px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+}
+
+.profile-badge {
+    font-size: 10px;
     font-weight: 700;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.8px;
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+    color: #8a9692;
 }
 
-.setup-header h1 {
-    margin: 10px 0 10px;
-    font-size: clamp(36px, 6vw, 58px);
-    line-height: 1;
-    letter-spacing: -0.04em;
-}
-
-.setup-header p {
-    max-width: 560px;
-    color: #858e8a;
-    font-size: 16px;
-    line-height: 1.6;
-}
-
-.checklist-card {
-    border: 1px solid #1c2521;
-    background: #0a0e0d;
-    border-radius: 20px;
-    overflow: hidden;
-}
-
-.checklist-header {
+.header-flex {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 26px 28px;
-    border-bottom: 1px solid #1c2521;
+    gap: 20px;
 }
 
-.checklist-header h2 {
-    margin: 7px 0 0;
-    font-size: 20px;
+.setup-header h1 {
+    margin: 0;
+    font-size: clamp(34px, 4.5vw, 48px);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    color: #f7f9f8;
 }
 
-.check-count {
+.checks-counter-pill {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: rgba(0, 255, 157, 0.06);
+    border: 1px solid rgba(0, 255, 157, 0.2);
+}
+
+.count-number {
     color: #00ff9d;
     font-size: 26px;
-    font-weight: 700;
-    text-align: right;
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
 }
 
-.check-count span {
-    display: block;
-    color: #68716d;
+.count-label {
+    color: #8b9994;
     font-size: 11px;
-    font-weight: 500;
-    margin-top: 2px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.setup-lead {
+    margin: 0;
+    color: #8b9692;
+    font-size: 15px;
+    line-height: 1.6;
+    max-width: 580px;
+}
+
+/* ─── STAGES CAROUSEL CARD ─────────────────────────────────────────── */
+.stages-carousel-card {
+    background: #090e0d;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.stages-label-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    color: #727e7a;
+}
+
+.stages-sub {
+    color: #00ff9d;
+}
+
+.stages-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.stage-step-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    transition: all 0.2s ease;
+}
+
+.stage-step-item.highlight {
+    border-color: rgba(0, 255, 157, 0.25);
+    background: rgba(0, 255, 157, 0.03);
+}
+
+.step-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #5d6965;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.stage-step-item.highlight .step-header {
+    color: #00ff9d;
+}
+
+.step-num {
+    font-variant-numeric: tabular-nums;
+}
+
+.step-arrow {
+    opacity: 0.4;
+}
+
+.step-title {
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #f1f5f3;
+}
+
+.stage-step-item.highlight .step-title {
+    color: #00ff9d;
+}
+
+.step-desc {
+    font-size: 11px;
+    color: #77837f;
+    line-height: 1.4;
+}
+
+/* ─── CHECKLIST CARD ───────────────────────────────────────────────── */
+.checklist-card {
+    background: #080d0c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+}
+
+.checklist-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 22px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(12, 18, 17, 0.7);
+}
+
+.checklist-eyebrow {
+    display: block;
+    color: #727e7a;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.6px;
+    margin-bottom: 4px;
+}
+
+.checklist-card-header h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #f7f9f8;
+}
+
+.model-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: rgba(0, 255, 157, 0.05);
+    border: 1px solid rgba(0, 255, 157, 0.15);
+    color: #00ff9d;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
 }
 
 .checks-list {
-    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .check-row {
     display: flex;
     align-items: center;
     gap: 16px;
-    padding: 19px 28px;
-    border-bottom: 1px solid #151c19;
+    padding: 16px 28px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    transition: background 0.15s ease;
 }
 
 .check-row:last-child {
     border-bottom: none;
 }
 
-.check-icon {
-    width: 42px;
-    height: 42px;
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    border-radius: 11px;
-    background: #111815;
+.check-row:hover {
+    background: rgba(255, 255, 255, 0.015);
+}
+
+.check-icon-wrap {
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    background: #0f1614;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #00ff9d;
+    flex-shrink: 0;
 }
 
-.check-info {
+.check-meta {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
 }
 
-.check-info strong {
-    display: block;
-    font-size: 15px;
-    margin-bottom: 4px;
+.check-title-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.check-info span {
-    color: #6f7874;
-    font-size: 13px;
+.check-title-row strong {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f7f9f8;
 }
 
-.check-status {
-    width: 25px;
-    height: 25px;
-    display: grid;
-    place-items: center;
+.check-standard-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #84918d;
+}
+
+.check-desc-text {
+    font-size: 12px;
+    color: #798681;
+}
+
+.check-ready-badge {
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
-    background: #00ff9d;
-    color: #03100a;
+    background: rgba(0, 255, 157, 0.12);
+    border: 1px solid rgba(0, 255, 157, 0.3);
+    color: #00ff9d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
+/* ─── FOOTER ───────────────────────────────────────────────────────── */
 .setup-footer {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 20px;
-    padding: 22px 28px;
-    border-top: 1px solid #1c2521;
+    padding: 20px 28px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(10, 15, 14, 0.85);
 }
 
-.offline-note {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    color: #79827e;
-    font-size: 12px;
-}
-
-.status-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background: #00ff9d;
-    box-shadow: 0 0 10px #00ff9d;
-}
-
-.start-scan-button {
+.offline-pill {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: #727e7a;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+}
+
+.start-scan-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     background: #00ff9d;
     color: #03100a;
-    padding: 14px 20px;
     font-size: 12px;
     font-weight: 800;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.8px;
     cursor: pointer;
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .start-scan-button:hover {
+    background: #05ffaa;
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 255, 157, 0.2);
+    box-shadow: 0 6px 25px rgba(0, 255, 157, 0.35);
+}
+
+.start-scan-button:active {
+    transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .stages-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 @media (max-width: 600px) {
     .setup-page {
-        padding: 20px 16px;
+        padding: 20px 16px 40px;
     }
 
-    .setup-header {
-        margin-top: 35px;
+    .header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
     }
 
-    .checklist-header,
+    .checklist-card-header,
     .check-row,
     .setup-footer {
         padding-left: 18px;
@@ -206,11 +410,13 @@
     }
 
     .setup-footer {
-        align-items: stretch;
         flex-direction: column;
+        align-items: stretch;
     }
 
     .start-scan-button {
         justify-content: center;
+        width: 100%;
+        padding: 14px;
     }
 }

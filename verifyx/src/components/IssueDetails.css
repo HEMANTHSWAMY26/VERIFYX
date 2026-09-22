@@ -1,306 +1,495 @@
+/* ═══════════════════════════════════════════════════════════════════
+   ISSUE DETAILS — ELITE PRODUCT UI/UX 2.0
+   ═══════════════════════════════════════════════════════════════════ */
+
 .issue-page {
     min-height: 100vh;
     background: #050707;
-    color: white;
-    padding: 28px 20px;
+    color: #f7f9f8;
+    padding: 32px 24px 60px;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
 }
 
 .issue-container {
-    width: min(850px, 100%);
+    max-width: 860px;
+    width: 100%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 22px;
+    gap: 24px;
 }
 
+/* ─── BACK BUTTON ──────────────────────────────────────────────────── */
 .issue-back-btn {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     background: transparent;
-    border: 0;
-    color: #89918e;
-    cursor: pointer;
+    border: none;
+    color: #7b8884;
     font-size: 13px;
     font-weight: 600;
-    padding: 0;
-    width: fit-content;
-    transition: color 0.2s ease;
+    cursor: pointer;
+    padding: 6px 0;
+    transition: color 0.18s ease;
+    align-self: flex-start;
 }
 
 .issue-back-btn:hover {
-    color: #f4f7f6;
+    color: #f7f9f8;
 }
 
+/* ─── HEADER ───────────────────────────────────────────────────────── */
 .issue-page-header {
-    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.issue-meta-tags {
+.issue-eyebrow-row {
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 12px;
 }
 
-.issue-tag {
+.issue-pill-red {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 4px 10px;
-    border-radius: 6px;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-}
-
-.issue-tag.red {
-    background: rgba(255, 79, 94, 0.12);
-    border: 1px solid rgba(255, 79, 94, 0.35);
-    color: #ff6b77;
-}
-
-.issue-tag.neutral {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    color: #8b9692;
-}
-
-.issue-page-header h1 {
-    font-size: clamp(34px, 4vw, 46px);
-    line-height: 1.05;
-    margin: 0 0 10px;
-    font-weight: 800;
-    color: #ffffff;
-}
-
-.issue-lead {
-    color: #9ba8a4;
-    font-size: 15px;
-    line-height: 1.5;
-    margin: 0;
-}
-
-/* EVIDENCE PANEL */
-.issue-evidence-panel {
-    border: 1px solid #202925;
-    border-radius: 16px;
-    background: #0a0e0d;
-    overflow: hidden;
-}
-
-.evidence-panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 14px 18px;
-    border-bottom: 1px solid #1c2420;
-}
-
-.panel-title {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #00ff9d;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-}
-
-.confidence-pill {
-    font-size: 10px;
-    font-weight: 700;
-    color: #ff6b77;
-    background: rgba(255, 79, 94, 0.1);
-    border: 1px solid rgba(255, 79, 94, 0.25);
     padding: 3px 8px;
     border-radius: 4px;
+    background: rgba(255, 79, 94, 0.12);
+    border: 1px solid rgba(255, 79, 94, 0.3);
+    color: #ff6874;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
 }
 
-.evidence-frame-viewport {
+.issue-pill-neutral {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #7a8883;
+}
+
+.issue-main-title {
+    margin: 0;
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 800;
+    letter-spacing: -1px;
+    color: #f7f9f8;
+}
+
+.issue-summary-lead {
+    margin: 0;
+    color: #8c9994;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* ─── EVIDENCE INSTRUMENT PANEL ────────────────────────────────────── */
+.evidence-instrument-panel {
+    background: #080d0c;
+    border: 1px solid rgba(255, 79, 94, 0.25);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55);
+}
+
+.panel-top-telemetry {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    background: rgba(14, 20, 18, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.telemetry-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: #8b9994;
+}
+
+.telemetry-icon {
+    color: #ff4f5e;
+}
+
+.confidence-chip {
+    color: #00ff9d;
+    font-variant-numeric: tabular-nums;
+}
+
+.evidence-viewport {
     position: relative;
-    width: 100%;
-    min-height: 280px;
-    max-height: 420px;
-    background: #050707;
+    height: 320px;
+    background: #040706;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
 .evidence-media-img {
     width: 100%;
-    height: auto;
-    max-height: 420px;
-    object-fit: cover;
-    display: block;
+    height: 100%;
+    object-fit: contain;
 }
 
-.evidence-fallback {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    background: radial-gradient(circle at center, #0e1614, #050707);
+/* Fallback view if no frame */
+.evidence-fallback-view {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.fallback-box {
-    width: 180px;
-    height: 140px;
-    border: 2px dashed #ff4f5e;
-    background: rgba(255, 79, 94, 0.12);
+.fallback-technical-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to right, rgba(255, 79, 94, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 79, 94, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+.fallback-annotated-box {
     position: relative;
+    width: 140px;
+    height: 140px;
+    border: 1.5px solid #ff4f5e;
+    background: rgba(255, 79, 94, 0.08);
+    box-shadow: 0 0 25px rgba(255, 79, 94, 0.2);
+}
+
+.fallback-annotated-box .corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-color: #ff4f5e;
+    border-style: solid;
+}
+
+.fallback-annotated-box .corner.tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; }
+.fallback-annotated-box .corner.tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+.fallback-annotated-box .corner.bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; }
+.fallback-annotated-box .corner.br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+
+.box-badge-flag {
+    position: absolute;
+    top: -24px;
+    left: 0;
+    padding: 3px 8px;
+    background: #ff4f5e;
+    color: #170406;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    border-radius: 3px;
+    white-space: nowrap;
+}
+
+.viewport-hud-telemetry {
+    position: absolute;
+    bottom: 10px;
+    left: 14px;
+    right: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #8b9994;
+    background: rgba(8, 12, 11, 0.85);
+    padding: 4px 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.flag-text {
+    color: #ff6874;
+}
+
+/* ─── REASONING ENGINE CARD ────────────────────────────────────────── */
+.reasoning-engine-card {
+    background: #080d0c;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.reasoning-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.reasoning-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #7b8884;
+}
+
+.reasoning-formula-tag {
+    color: #00ff9d;
+}
+
+.formula-flow-grid {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.formula-node {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 8px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.node-eyebrow {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    color: #6a7672;
+}
+
+.node-value {
+    font-size: 13px;
+    font-weight: 800;
+    color: #f7f9f8;
+    letter-spacing: 0.4px;
+}
+
+.node-caption {
+    font-size: 10px;
+    color: #77837f;
+}
+
+.formula-operator {
+    color: #00ff9d;
+    font-size: 16px;
+    font-weight: 800;
+    opacity: 0.8;
+}
+
+.decision-resolution-strip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: rgba(255, 79, 94, 0.06);
+    border: 1px solid rgba(255, 79, 94, 0.2);
     border-radius: 8px;
 }
 
-.box-badge {
-    position: absolute;
-    top: -12px;
-    left: 8px;
-    background: #ff4f5e;
-    color: #120405;
+.decision-arrow {
+    color: #ff4f5e;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.decision-outcome {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.outcome-label {
     font-size: 10px;
     font-weight: 800;
-    padding: 2px 6px;
-    border-radius: 3px;
+    letter-spacing: 0.8px;
+    color: #a46d73;
 }
 
-.telemetry-bar {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(5, 7, 7, 0.85);
-    backdrop-filter: blur(6px);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 8px 16px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 10px;
-    font-family: monospace;
-    color: #8b9692;
+.outcome-text {
+    font-size: 13px;
+    font-weight: 800;
+    color: #ff6874;
 }
 
-/* CARDS GRID */
-.issue-details-grid {
+/* ─── TWO COLUMNS: RULE SPEC + FIX GUIDE ───────────────────────────── */
+.details-two-columns {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 16px;
 }
 
-.rule-card,
-.fix-guide-card {
-    border: 1px solid #1c2420;
-    border-radius: 14px;
-    background: #0a0e0d;
-    padding: 20px;
+.rule-spec-card,
+.corrective-guide-card {
+    background: #080d0c;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 12px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-.card-label {
-    display: flex;
+.card-top-tag {
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
     font-size: 10px;
     font-weight: 800;
-    letter-spacing: 0.1em;
-    color: #00ff9d;
-    margin-bottom: 12px;
+    letter-spacing: 1px;
+    color: #72807c;
 }
 
-.card-label.warning {
+.card-top-tag.warning {
     color: #f59e0b;
 }
 
-.rule-card h3 {
-    margin: 0 0 8px;
-    font-size: 16px;
-    color: #e4ebe8;
+.rule-spec-card h3 {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #f7f9f8;
 }
 
-.rule-card p {
+.rule-spec-card p {
     margin: 0;
-    color: #808d88;
     font-size: 13px;
-    line-height: 1.6;
+    line-height: 1.55;
+    color: #83918d;
 }
 
-.action-steps {
-    list-style: none;
-    padding: 0;
+.remedy-steps {
     margin: 0;
+    padding: 0;
+    list-style: none;
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.action-steps li {
+.remedy-steps li {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
 }
 
-.step-num {
-    display: flex;
+.step-badge {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    background: #192420;
-    color: #00ff9d;
-    font-size: 11px;
+    background: rgba(245, 158, 11, 0.15);
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    color: #f59e0b;
+    font-size: 10px;
     font-weight: 800;
     flex-shrink: 0;
-    margin-top: 2px;
+    margin-top: 1px;
 }
 
-.action-steps strong {
-    display: block;
-    font-size: 13px;
-    color: #e4ebe8;
+.step-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
 }
 
-.action-steps span {
-    display: block;
+.step-text strong {
     font-size: 12px;
-    color: #808d88;
-    margin-top: 2px;
+    font-weight: 700;
+    color: #f7f9f8;
 }
 
-/* BOTTOM BAR */
-.issue-bottom-bar {
-    margin-top: 6px;
+.step-text span {
+    font-size: 11px;
+    color: #778480;
 }
 
-.reverify-action-btn {
-    width: 100%;
-    padding: 18px 24px;
+/* ─── CTA DOCK ─────────────────────────────────────────────────────── */
+.issue-cta-dock {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-fix-and-rescan {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 28px;
+    border-radius: 8px;
     background: #00ff9d;
     color: #03100a;
-    border: 0;
-    border-radius: 12px;
-    font-size: 14px;
+    border: none;
+    font-size: 13px;
     font-weight: 800;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.8px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 0 25px rgba(0, 255, 157, 0.25);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.reverify-action-btn:hover {
+.btn-fix-and-rescan:hover {
+    background: #05ffaa;
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 255, 157, 0.22);
+    box-shadow: 0 6px 30px rgba(0, 255, 157, 0.4);
 }
 
-@media (max-width: 720px) {
-    .issue-details-grid {
+.btn-fix-and-rescan:active {
+    transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .formula-flow-grid {
+        display: grid;
         grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .formula-operator {
+        display: none;
+    }
+
+    .details-two-columns {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .issue-page {
+        padding: 20px 16px 40px;
+    }
+
+    .evidence-viewport {
+        height: 240px;
+    }
+
+    .decision-outcome {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+    }
+
+    .btn-fix-and-rescan {
+        width: 100%;
+        justify-content: center;
     }
 }

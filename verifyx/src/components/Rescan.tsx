@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import {
     ArrowLeft,
     Camera,
@@ -17,9 +18,10 @@ import { VisionEngine } from "../vision/VisionEngine";
 interface RescanProps {
     onBack: () => void;
     onComplete: (data: { afterFrameDataUrl: string }) => void;
+    beforeFrame?: string;
 }
 
-export default function Rescan({ onBack, onComplete }: RescanProps) {
+export default function Rescan({ onBack, onComplete, beforeFrame }: RescanProps) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const streamRef = useRef<MediaStream | null>(null);
 
@@ -27,6 +29,8 @@ export default function Rescan({ onBack, onComplete }: RescanProps) {
     const [cameraError, setCameraError] = useState("");
     const [scanning, setScanning] = useState(false);
     const [scanSuccess, setScanSuccess] = useState(false);
+    const [rescanError, setRescanError] = useState("");
+    const [afterPreview, setAfterPreview] = useState<string>("");
 
     const startCamera = async () => {
         try {
@@ -60,8 +64,6 @@ export default function Rescan({ onBack, onComplete }: RescanProps) {
             setCameraError("Camera stream not available. Ready for re-scan.");
         }
     };
-
-    const [rescanError, setRescanError] = useState("");
 
     const runReVerification = async () => {
         if (scanning || scanSuccess) return;
@@ -101,7 +103,6 @@ export default function Rescan({ onBack, onComplete }: RescanProps) {
 
         setTimeout(() => {
             const { detections } = evaluateRescan();
-            // Update confidence with measured value
             if (detections[4]) {
                 detections[4].confidence = measuredConf;
             }
@@ -112,13 +113,14 @@ export default function Rescan({ onBack, onComplete }: RescanProps) {
                 "RE-SCAN VERIFIED - CORRIDOR CLEARED"
             );
 
+            setAfterPreview(afterFrame);
             setScanning(false);
             setScanSuccess(true);
 
             setTimeout(() => {
                 onComplete({ afterFrameDataUrl: afterFrame });
-            }, 1200);
-        }, 1400);
+            }, 1400);
+        }, 1300);
     };
 
     useEffect(() => {
@@ -135,137 +137,179 @@ export default function Rescan({ onBack, onComplete }: RescanProps) {
     return (
         <main className="rescan-page">
             <div className="rescan-container">
-                {/* BACK */}
-                <button className="rescan-back-btn" onClick={onBack}>
-                    <ArrowLeft size={18} />
-                    Back to Issue
-                </button>
 
-                {/* HEADER */}
+                {/* ─── BACK BUTTON ──────────────────────────────────────────── */}
+                <motion.button
+                    className="rescan-back-btn"
+                    onClick={onBack}
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <ArrowLeft size={16} />
+                    <span>Back to Issue</span>
+                </motion.button>
+
+                {/* ─── HEADER ───────────────────────────────────────────────── */}
                 <header className="rescan-header">
-                    <div>
-                        <span className="rescan-eyebrow">VERIFYX / RE-SCAN VERIFICATION</span>
+                    <div className="rescan-header-copy">
+                        <span className="rescan-eyebrow">VERIFYX / SIGNATURE RE-SCAN</span>
                         <h1>Verify Obstruction Fix</h1>
+                        <p>Point camera at the cleared access corridor to establish closed-loop proof.</p>
                     </div>
 
-                    <div className={cameraActive ? "rescan-cam-badge active" : "rescan-cam-badge"}>
-                        {cameraActive ? <Video size={16} /> : <VideoOff size={16} />}
+                    <div className={`rescan-cam-badge ${cameraActive ? "active" : ""}`}>
+                        {cameraActive ? <Video size={14} /> : <VideoOff size={14} />}
                         <span>{cameraActive ? "LIVE CAMERA" : "STANDBY"}</span>
                     </div>
                 </header>
 
-                <p className="rescan-subtitle">
-                    Point your camera at the previously obstructed access pathway to confirm the clearance zone.
-                </p>
-
-                {/* CAMERA VIEWPORT */}
-                <section className="rescan-camera-card">
-                    <video
-                        ref={videoRef}
-                        className="rescan-video"
-                        autoPlay
-                        muted
-                        playsInline
-                    />
-
-                    {!cameraActive && (
-                        <div className="rescan-camera-placeholder">
-                            <Camera size={44} />
-                            <h3>Targeting Access Corridor</h3>
-                            <p>Aim phone at the cleared pathway area</p>
-                            <button className="rescan-retry-btn" onClick={startCamera}>
-                                Retry Camera
-                            </button>
-                        </div>
-                    )}
-
-                    {/* TARGETING RETICLE OVERLAY */}
-                    <div className="rescan-reticle-overlay">
-                        <div className={`target-box ${scanSuccess ? "cleared" : ""}`}>
-                            <div className="reticle-corner tl" />
-                            <div className="reticle-corner tr" />
-                            <div className="reticle-corner bl" />
-                            <div className="reticle-corner br" />
-
-                            <div className="target-label">
-                                {scanSuccess ? (
-                                    <span className="label-cleared">
-                                        <CheckCircle2 size={13} />
-                                        PATHWAY 100% CLEAR (96% CONF)
-                                    </span>
-                                ) : (
-                                    <span className="label-eval">
-                                        <Zap size={13} />
-                                        RE-VERIFICATION ZONE: CLEAR PATHWAY
-                                    </span>
-                                )}
-                            </div>
-                        </div>
-
-                        {scanning && <div className="rescan-laser-line" />}
+                {/* ─── CLOSED-LOOP CONTINUITY STRIP ─────────────────────────── */}
+                <section className="continuity-strip">
+                    <div className="loop-step past">
+                        <span className="step-tag">01</span>
+                        <span className="step-name">ISSUE FLAGGED</span>
                     </div>
-
-                    {/* SUCCESS OVERLAY */}
-                    {scanSuccess && (
-                        <div className="rescan-success-banner">
-                            <ShieldCheck size={28} />
-                            <div>
-                                <strong>OBSTRUCTION CLEARED</strong>
-                                <span>Rule 4.1 Requirement Satisfied · 5 / 5 Verified</span>
-                            </div>
-                        </div>
-                    )}
+                    <span className="loop-divider">→</span>
+                    <div className="loop-step past">
+                        <span className="step-tag">02</span>
+                        <span className="step-name">PHYSICAL FIX</span>
+                    </div>
+                    <span className="loop-divider">→</span>
+                    <div className="loop-step active">
+                        <span className="step-tag">03</span>
+                        <span className="step-name">RE-SCAN CORRIDOR</span>
+                    </div>
+                    <span className="loop-divider">→</span>
+                    <div className={`loop-step ${scanSuccess ? "active" : ""}`}>
+                        <span className="step-tag">04</span>
+                        <span className="step-name">VERIFIED</span>
+                    </div>
                 </section>
 
-                {cameraError && (
-                    <div className="rescan-camera-error">
-                        {cameraError}
-                    </div>
-                )}
-
-                {rescanError && (
-                    <div className="rescan-camera-error" style={{ background: "rgba(255, 79, 94, 0.15)", borderColor: "#ff4f5e", color: "#ff6b77" }}>
-                        {rescanError}
-                    </div>
-                )}
-
-                {/* CONTROLS */}
-                <section className="rescan-controls-panel">
-                    <div className="instruction-box">
-                        <div className="instruction-icon">
-                            <ScanLine size={20} />
+                {/* ─── BEFORE EVIDENCE & LIVE CAMERA COMPARISON ─────────────── */}
+                <div className="rescan-view-grid">
+                    {/* BEFORE FRAME (AUDIT EVIDENCE) */}
+                    {beforeFrame && (
+                        <div className="audit-before-card">
+                            <div className="card-tag red">BEFORE: ISSUE EVIDENCE</div>
+                            <div className="before-img-frame">
+                                <img src={beforeFrame} alt="Before fix evidence" />
+                            </div>
+                            <span className="caption-text">Obstruction Flagged (<span className="red-text">Rule 4.1</span>)</span>
                         </div>
+                    )}
+
+                    {/* LIVE CAMERA / RESCAN TARGETING CARD */}
+                    <div className="rescan-targeting-card">
+                        {scanSuccess && afterPreview ? (
+                            <img src={afterPreview} alt="After fix evidence" className="rescan-video-feed" />
+                        ) : (
+                            <video
+                                ref={videoRef}
+                                className="rescan-video-feed"
+                                autoPlay
+                                muted
+                                playsInline
+                            />
+                        )}
+
+                        {!cameraActive && (
+                            <div className="camera-standby-cover">
+                                <Camera size={40} className="cover-icon" />
+                                <h3>Corridor Targeting Active</h3>
+                                <p>Aim phone camera at the cleared walking zone.</p>
+                                <button className="retry-camera-btn" onClick={startCamera}>
+                                    Retry Camera
+                                </button>
+                            </div>
+                        )}
+
+                        {/* TARGETING HUD OVERLAY */}
+                        <div className="targeting-hud-overlay">
+                            <div className={`targeting-reticle-box ${scanSuccess ? "cleared" : ""}`}>
+                                <span className="reticle-corner tl" />
+                                <span className="reticle-corner tr" />
+                                <span className="reticle-corner bl" />
+                                <span className="reticle-corner br" />
+
+                                <div className="targeting-label-badge">
+                                    {scanSuccess ? (
+                                        <span className="label-text cleared">
+                                            <CheckCircle2 size={12} />
+                                            CORRIDOR 100% CLEAR (96% CONF)
+                                        </span>
+                                    ) : (
+                                        <span className="label-text evaluating">
+                                            <Zap size={12} />
+                                            RE-SCAN ZONE: CLEAR PATHWAY (1.0m)
+                                        </span>
+                                    )}
+                                </div>
+                            </div>
+
+                            {scanning && <div className="rescan-subtle-laser" />}
+                        </div>
+
+                        {/* SUCCESS TOAST OVERLAY */}
+                        {scanSuccess && (
+                            <motion.div
+                                className="rescan-resolved-pill"
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                <ShieldCheck size={20} />
+                                <div>
+                                    <strong>OBSTRUCTION RESOLVED · 5/5 PASSED</strong>
+                                    <span>Closing verification loop...</span>
+                                </div>
+                            </motion.div>
+                        )}
+                    </div>
+                </div>
+
+                {/* ERROR NOTIFICATIONS */}
+                {cameraError && <div className="rescan-error-banner">{cameraError}</div>}
+                {rescanError && <div className="rescan-error-banner critical">{rescanError}</div>}
+
+                {/* ─── CONTROLS ─────────────────────────────────────────────── */}
+                <section className="rescan-bottom-console">
+                    <div className="rule-badge-box">
+                        <ScanLine size={16} />
                         <div>
-                            <strong>Standard Verification Checklist</strong>
-                            <span>Rule 4.1: Walking-Working Surfaces (1.0m Clearance Width)</span>
+                            <strong>OSHA 1910.22 Walking-Working Surfaces</strong>
+                            <span>Continuous 1.0m lateral egress clearance required</span>
                         </div>
                     </div>
 
                     <button
-                        className={`rescan-trigger-btn ${scanning ? "running" : ""} ${
-                            scanSuccess ? "success" : ""
+                        className={`rescan-action-trigger ${scanning ? "running" : ""} ${
+                            scanSuccess ? "resolved" : ""
                         }`}
                         onClick={runReVerification}
                         disabled={scanning || scanSuccess}
+                        id="btn-trigger-rescan"
                     >
                         {scanning ? (
                             <>
-                                <span className="rescan-spinner-dot" />
-                                ANALYZING ENVIRONMENT...
+                                <span className="rescan-spinner" />
+                                <span>EVALUATING CLEARANCE...</span>
                             </>
                         ) : scanSuccess ? (
                             <>
-                                <CheckCircle2 size={20} />
-                                VERIFICATION CONFIRMED (5 / 5)
+                                <CheckCircle2 size={18} />
+                                <span>VERIFICATION CONFIRMED (5 / 5)</span>
                             </>
                         ) : (
                             <>
-                                <ScanLine size={20} />
-                                RE-SCAN & VERIFY CORRIDOR
+                                <ScanLine size={18} />
+                                <span>RE-SCAN & PROVE CLEARANCE</span>
                             </>
                         )}
                     </button>
                 </section>
+
             </div>
         </main>
     );

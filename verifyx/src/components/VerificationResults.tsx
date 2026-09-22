@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import {
     ArrowLeft,
     CheckCircle2,
@@ -7,8 +8,13 @@ import {
     HelpCircle,
     RotateCcw,
     ShieldAlert,
-    Clock,
     Info,
+    Camera,
+    Flame,
+    DoorOpen,
+    ShieldCheck,
+    Route,
+    Wrench,
 } from "lucide-react";
 
 import "./VerificationResults.css";
@@ -27,6 +33,14 @@ interface VerificationResultsProps {
 }
 
 const defaultEvaluation = evaluateInitialScan();
+
+const ruleIcons: Record<string, React.ElementType> = {
+    rule_extinguisher: Flame,
+    rule_exit: DoorOpen,
+    rule_sign: ShieldCheck,
+    rule_pathway: Route,
+    rule_equipment: Wrench,
+};
 
 export default function VerificationResults({
     onBack,
@@ -48,217 +62,295 @@ export default function VerificationResults({
     const reviewCheck = checks.find((c) => c.status === "review");
     const rescanCheck = checks.find((c) => c.status === "rescan");
 
-    let headline = "All requirements satisfied.";
-    if (hasIssue) headline = "One issue needs attention.";
-    else if (hasReview) headline = "Human review required.";
-    else if (hasRescan) headline = "Camera re-scan needed.";
-    else if (allPending) headline = "Verification Incomplete (No Valid Detections).";
-    else if (hasPending && verifiedCount < totalCount) headline = `${verifiedCount} of ${totalCount} verified. Further inspection required.`;
+    let headline = "All standards satisfied.";
+    let subStatus = "VERIFIED COMPLIANT";
+    if (hasIssue) {
+        headline = "One active compliance issue requires physical fix.";
+        subStatus = "ISSUE FLAGGED";
+    } else if (hasReview) {
+        headline = "Model detected object with moderate confidence (45%–69%).";
+        subStatus = "HUMAN REVIEW NEEDED";
+    } else if (hasRescan) {
+        headline = "Camera distance or angle was outside operational threshold.";
+        subStatus = "RE-SCAN NEEDED";
+    } else if (allPending) {
+        headline = "No verified objects were visible in the scanned corridor.";
+        subStatus = "INCOMPLETE";
+    } else if (hasPending && verifiedCount < totalCount) {
+        headline = `${verifiedCount} of ${totalCount} verified. Further area scan required.`;
+        subStatus = "PARTIAL PASS";
+    }
 
     return (
         <main className="results-page">
             <div className="results-container">
-                <button className="results-back" onClick={onBack}>
-                    <ArrowLeft size={18} />
-                    Back to Scan
-                </button>
 
-                <header className="results-header">
-                    <span>VERIFYX / INSPECTION RESULTS</span>
-                    <h1>
-                        Verification
-                        <br />
-                        Complete.
-                    </h1>
-                    <p>
-                        On-device AI inspected the environment against
-                        workplace safety standards.
-                    </p>
-                </header>
+                {/* ─── NAVIGATION ───────────────────────────────────────────── */}
+                <motion.button
+                    className="results-back-btn"
+                    onClick={onBack}
+                    initial={{ opacity: 0, x: -6 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.2 }}
+                >
+                    <ArrowLeft size={16} />
+                    <span>Back to Scanner</span>
+                </motion.button>
 
-                <section className="score-card">
-                    <div className="score">
-                        <strong>{verifiedCount}</strong>
-                        <span>/ {totalCount}</span>
+                {/* ─── RESULT HERO SCORE ────────────────────────────────────── */}
+                <motion.header
+                    className="results-hero"
+                    initial={{ opacity: 0, y: 14 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35 }}
+                >
+                    <div className="hero-top-eyebrow">
+                        <span className="eyebrow-tag">PHYSICAL INSPECTION OUTCOME</span>
+                        <span className={`status-pill ${hasIssue ? "issue" : hasReview ? "review" : verifiedCount === totalCount ? "pass" : "partial"}`}>
+                            {subStatus}
+                        </span>
                     </div>
 
-                    <div>
-                        <span className="score-label">REQUIREMENTS VERIFIED</span>
-                        <h2>{headline}</h2>
-                    </div>
-                </section>
+                    <div className="score-hero-display">
+                        <div className="score-big-number">
+                            <motion.span
+                                className="number-current"
+                                initial={{ opacity: 0, scale: 0.8 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ duration: 0.4, delay: 0.1, type: "spring", stiffness: 300, damping: 20 }}
+                            >
+                                {verifiedCount}
+                            </motion.span>
+                            <span className="number-slash">/</span>
+                            <span className="number-total">{totalCount}</span>
+                        </div>
 
-                {/* REVIEW REQUIRED BANNER */}
+                        <div className="score-text-block">
+                            <span className="score-label">CHECKS VERIFIED</span>
+                            <h2>{headline}</h2>
+                        </div>
+                    </div>
+                </motion.header>
+
+                {/* ─── CONTEXTUAL ALERTS (DRIVEN BY REAL STATE) ─────────────── */}
                 {hasReview && (
-                    <div className="review-alert-card">
-                        <div className="review-alert-title">
-                            <HelpCircle size={18} />
-                            <span>VERIFYX NEEDS A CLOSER LOOK</span>
+                    <motion.div
+                        className="alert-banner review"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <div className="alert-header">
+                            <HelpCircle size={17} />
+                            <span>HUMAN REVIEW RECOMMENDED</span>
                         </div>
                         <p>
                             {reviewCheck?.reviewReason ||
-                                "Object detected, but model confidence is in the review range (45%–69%). Automatic verification is held to prevent a false pass."}
+                                "Detection confidence is in the review tier (45%–69%). Automated pass held to prevent false compliance."}
                         </p>
-                        <div className="review-alert-actions">
-                            <button
-                                className="confirm-manual-btn"
-                                onClick={onConfirmManualReview}
-                            >
-                                <CheckCircle2 size={16} />
-                                CONFIRM COMPLIANT (MANUAL REVIEW)
+                        <div className="alert-actions">
+                            <button className="alert-btn primary" onClick={onConfirmManualReview}>
+                                <CheckCircle2 size={14} />
+                                <span>CONFIRM COMPLIANT (MANUAL REVIEW)</span>
                             </button>
-                            <button
-                                className="check-again-btn"
-                                onClick={onRescan || onBack}
-                            >
-                                <RotateCcw size={16} />
-                                CHECK AGAIN (RE-SCAN)
+                            <button className="alert-btn secondary" onClick={onRescan || onBack}>
+                                <RotateCcw size={14} />
+                                <span>RE-SCAN AREA</span>
                             </button>
                         </div>
-                    </div>
+                    </motion.div>
                 )}
 
-                {/* RESCAN NEEDED BANNER */}
                 {hasRescan && !hasReview && (
-                    <div className="rescan-alert-card">
-                        <div className="rescan-alert-title">
-                            <ShieldAlert size={18} />
-                            <span>RE-SCAN REQUIRED</span>
+                    <motion.div
+                        className="alert-banner rescan"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <div className="alert-header">
+                            <ShieldAlert size={17} />
+                            <span>RE-SCAN REQUIRED · OPERATIONAL THRESHOLD</span>
                         </div>
                         <p>
                             {rescanCheck?.rescanReason ||
-                                "Detection confidence is below reliable threshold (< 45%). Move closer or change camera angle to establish certainty."}
+                                "Detection confidence or object size was below reliable threshold (< 45% or < 32px). Move closer to confirm."}
                         </p>
-                        <button
-                            className="rescan-action-btn"
-                            onClick={onRescan || onBack}
-                        >
-                            <RotateCcw size={16} />
-                            RE-SCAN ENVIRONMENT
+                        <button className="alert-btn primary" onClick={onRescan || onBack}>
+                            <RotateCcw size={14} />
+                            <span>RE-SCAN WITH CAMERA</span>
                         </button>
-                    </div>
+                    </motion.div>
                 )}
 
-                {/* NO DETECTION / INCOMPLETE BANNER */}
                 {allPending && !hasIssue && !hasReview && !hasRescan && (
-                    <div className="rescan-alert-card no-detection-banner">
-                        <div className="rescan-alert-title">
-                            <Info size={18} />
-                            <span>VERIFICATION INCOMPLETE — NO EVIDENCE IN VIEW</span>
+                    <motion.div
+                        className="alert-banner pending"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        <div className="alert-header">
+                            <Info size={17} />
+                            <span>INCOMPLETE INSPECTION · NO EVIDENCE IN VIEW</span>
                         </div>
                         <p>
-                            No relevant corridor obstructions or supported safety fixtures were detected in view.
-                            VERIFYX requires positive verified evidence to establish compliance.
+                            No supported safety equipment or pathway obstructions were detected in the frame.
+                            Aim camera at designated facility fixtures.
                         </p>
-                        <button
-                            className="rescan-action-btn"
-                            onClick={onBack}
-                        >
-                            <RotateCcw size={16} />
-                            CONTINUE SCANNING
+                        <button className="alert-btn primary" onClick={onBack}>
+                            <RotateCcw size={14} />
+                            <span>CONTINUE SCANNING</span>
                         </button>
-                    </div>
+                    </motion.div>
                 )}
 
-                {/* CAPTURED EVIDENCE FRAME */}
+                {/* ─── CAPTURED EVIDENCE FRAME (IF AVAILABLE) ───────────────── */}
                 {evidenceFrame && (
-                    <section className="evidence-preview-card">
-                        <div className="evidence-preview-header">
-                            <span>CAPTURED EVIDENCE FRAME</span>
-                            <span className="evidence-tag">LOCAL OFFLINE FRAME</span>
+                    <motion.section
+                        className="evidence-frame-strip"
+                        initial={{ opacity: 0, y: 12 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.3, delay: 0.15 }}
+                    >
+                        <div className="strip-header">
+                            <div className="strip-title">
+                                <Camera size={14} />
+                                <span>CAPTURED AUDIT EVIDENCE</span>
+                            </div>
+                            <span className="strip-tag">OFFLINE LOCAL FRAME</span>
                         </div>
-                        <div className="evidence-thumbnail-wrapper">
-                            <img
-                                src={evidenceFrame}
-                                alt="Captured scan evidence"
-                                className="evidence-thumbnail-img"
-                            />
+                        <div className="strip-image-wrap">
+                            <img src={evidenceFrame} alt="Captured scan evidence" className="strip-img" />
                         </div>
-                    </section>
+                    </motion.section>
                 )}
 
-                {/* CHECKLIST BREAKDOWN */}
-                <section className="results-list">
-                    <div className="results-list-header">
-                        <span>VERIFICATION CHECKS & CONFIDENCE TIERS</span>
-                        <strong>{totalCount} TOTAL</strong>
+                {/* ─── STAGGERED CHECKLIST BREAKDOWN ─────────────────────────── */}
+                <motion.section
+                    className="checklist-breakdown-card"
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                        hidden: { opacity: 0 },
+                        visible: {
+                            opacity: 1,
+                            transition: { staggerChildren: 0.06, delayChildren: 0.2 },
+                        },
+                    }}
+                >
+                    <div className="checklist-breakdown-header">
+                        <span>STANDARDS AUDIT STATUS</span>
+                        <span className="total-tag">{totalCount} REQUIREMENTS</span>
                     </div>
 
-                    {checks.map((check) => {
-                        const isIssue = check.status === "issue";
-                        const isReview = check.status === "review";
-                        const isRescan = check.status === "rescan";
-                        const isPending = check.status === "pending" || check.status === "not_supported";
+                    <div className="results-items-list">
+                        {checks.map((check) => {
+                            const isIssue = check.status === "issue";
+                            const isReview = check.status === "review";
+                            const isRescan = check.status === "rescan";
+                            const isPending = check.status === "pending" || check.status === "not_supported";
+                            const isVerified = check.status === "verified";
 
-                        const rowClass = isIssue
-                            ? "result-row issue"
-                            : isReview
-                            ? "result-row review"
-                            : isRescan
-                            ? "result-row rescan"
-                            : isPending
-                            ? "result-row pending"
-                            : "result-row";
+                            const Icon = ruleIcons[check.ruleId] || CheckCircle2;
 
-                        return (
-                            <div className={rowClass} key={check.id || check.title}>
-                                <div className="result-icon">
-                                    {isIssue ? (
-                                        <AlertTriangle size={19} />
-                                    ) : isReview ? (
-                                        <HelpCircle size={19} />
-                                    ) : isRescan ? (
-                                        <RotateCcw size={19} />
-                                    ) : isPending ? (
-                                        <Clock size={19} />
-                                    ) : (
-                                        <CheckCircle2 size={19} />
-                                    )}
-                                </div>
+                            let statusBadge = "PASS";
+                            let statusClass = "pass";
+                            let statusSymbol = "✓";
 
-                                <div className="result-info">
-                                    <strong>{check.title}</strong>
-                                    <span>
-                                        {check.issueMessage ||
-                                            check.reviewReason ||
-                                            check.rescanReason ||
-                                            (isPending
-                                                ? check.description || "Awaiting verified evidence"
-                                                : `Verified compliant (${Math.round(check.confidence * 100)}% conf · ${check.confidenceTier || "HIGH"})`)}
-                                    </span>
-                                </div>
+                            if (isIssue) {
+                                statusBadge = "ISSUE";
+                                statusClass = "issue";
+                                statusSymbol = "!";
+                            } else if (isReview) {
+                                statusBadge = "REVIEW";
+                                statusClass = "review";
+                                statusSymbol = "?";
+                            } else if (isRescan) {
+                                statusBadge = "RE-SCAN";
+                                statusClass = "rescan";
+                                statusSymbol = "△";
+                            } else if (isPending) {
+                                statusBadge = "PENDING";
+                                statusClass = "pending";
+                                statusSymbol = "○";
+                            }
 
-                                <div className="result-status">
-                                    {isIssue
-                                        ? "ISSUE"
-                                        : isReview
-                                        ? "REVIEW"
-                                        : isRescan
-                                        ? "RE-SCAN"
-                                        : isPending
-                                        ? "PENDING"
-                                        : "PASS"}
-                                </div>
-                            </div>
-                        );
-                    })}
-                </section>
+                            return (
+                                <motion.div
+                                    key={check.id || check.title}
+                                    className={`result-item-row ${statusClass}`}
+                                    variants={{
+                                        hidden: { opacity: 0, x: -8 },
+                                        visible: { opacity: 1, x: 0 },
+                                    }}
+                                    transition={{ duration: 0.25 }}
+                                >
+                                    <div className="item-symbol-wrap">
+                                        <span className={`symbol-badge ${statusClass}`}>{statusSymbol}</span>
+                                    </div>
 
-                {/* ACTION BUTTONS */}
-                <section className="results-actions">
+                                    <div className="item-icon-box">
+                                        <Icon size={16} />
+                                    </div>
+
+                                    <div className="item-details">
+                                        <div className="item-title-line">
+                                            <strong>{check.title}</strong>
+                                            {isVerified && check.confidence > 0 && (
+                                                <span className="confidence-readout">
+                                                    {Math.round(check.confidence * 100)}% conf
+                                                </span>
+                                            )}
+                                        </div>
+                                        <span className="item-subtitle">
+                                            {check.issueMessage ||
+                                                check.reviewReason ||
+                                                check.rescanReason ||
+                                                (isPending
+                                                    ? check.description || "Awaiting verified physical evidence"
+                                                    : "Verified compliant with regulatory standard")}
+                                        </span>
+                                    </div>
+
+                                    <div className={`item-status-pill ${statusClass}`}>
+                                        {statusBadge}
+                                    </div>
+                                </motion.div>
+                            );
+                        })}
+                    </div>
+                </motion.section>
+
+                {/* ─── PRIMARY ACTIONS ──────────────────────────────────────── */}
+                <motion.section
+                    className="results-bottom-actions"
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, delay: 0.35 }}
+                >
                     {hasIssue && (
-                        <button className="issue-button" onClick={onIssue}>
-                            <AlertTriangle size={18} />
-                            VIEW ISSUE
-                            <ChevronRight size={18} />
+                        <button
+                            className="action-btn-issue"
+                            onClick={onIssue}
+                            id="btn-view-issue-details"
+                        >
+                            <AlertTriangle size={16} />
+                            <span>VIEW ISSUE DETAILS</span>
+                            <ChevronRight size={16} />
                         </button>
                     )}
 
-                    <button className="report-button" onClick={onReport}>
-                        <FileText size={18} />
-                        VIEW REPORT
+                    <button
+                        className="action-btn-report"
+                        onClick={onReport}
+                        id="btn-view-audit-report"
+                    >
+                        <FileText size={16} />
+                        <span>VIEW INSPECTION REPORT</span>
                     </button>
-                </section>
+                </motion.section>
+
             </div>
         </main>
     );

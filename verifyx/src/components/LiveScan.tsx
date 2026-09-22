@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
     ArrowLeft,
     Camera,
     CheckCircle2,
     Cpu,
+    FlaskConical,
     RotateCcw,
     ScanLine,
     ShieldAlert,
     Video,
-    VideoOff,
     Zap,
 } from "lucide-react";
 
@@ -32,15 +33,16 @@ interface LiveScanProps {
         detections?: Detection[];
         isRealAI?: boolean;
     }) => void;
+    initialDemoMode?: boolean;
 }
 
-export default function LiveScan({ onBack, onResults }: LiveScanProps) {
+export default function LiveScan({ onBack, onResults, initialDemoMode = false }: LiveScanProps) {
     const videoRef = useRef<HTMLVideoElement | null>(null);
     const streamRef = useRef<MediaStream | null>(null);
 
     const [cameraActive, setCameraActive] = useState(false);
     const [cameraError, setCameraError] = useState("");
-    const [scanning, setScanning] = useState(false);
+    const [scanning, setScanning] = useState(initialDemoMode);
 
     const visionEngine = VisionEngine.getInstance();
 
@@ -48,25 +50,23 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
     const [engineStatus, setEngineStatus] = useState<VisionEngineStatus>(() => visionEngine.status);
     const [liveDetections, setLiveDetections] = useState<Detection[]>([]);
     const [inferenceMs, setInferenceMs] = useState<number>(0);
-    const [fps, setFps] = useState<number>(0);
-    const [lastInferenceTime, setLastInferenceTime] = useState<string>("");
     const [devHudOpen, setDevHudOpen] = useState<boolean>(false);
     const isInferringRef = useRef<boolean>(false);
 
-    // Development & Test Profile State (allows testing High, Med-Review, and Low-Rescan)
-    const [testProfile, setTestProfile] = useState<"live" | TestConfidenceProfile>("live");
+    // Development & Test Profile State
+    const testProfile: "live" | TestConfidenceProfile = "live";
 
     // Dataset Demo / Evaluation Mode State
-    const [isDemoMode, setIsDemoMode] = useState<boolean>(false);
+    const [isDemoMode, setIsDemoMode] = useState<boolean>(initialDemoMode);
     const [demoScenario, setDemoScenario] = useState<"fe" | "exit" | "hazard" | "pathway" | "empty">("fe");
     const demoImageRef = useRef<HTMLImageElement | null>(null);
 
     const datasetScenarios = [
-        { id: "fe", label: "Fire Extinguisher", src: "/test_samples/fe.jpg" },
-        { id: "exit", label: "Emergency Exit Sign", src: "/test_samples/exit.jpg" },
-        { id: "hazard", label: "Hazard Sign", src: "/test_samples/hazard.jpg" },
-        { id: "pathway", label: "Clear Pathway", src: "/test_samples/chair.jpg" },
-        { id: "empty", label: "Empty / No Detection", src: "/test_samples/empty.jpg" },
+        { id: "fe", label: "Fire Extinguisher", code: "FE-01", src: "/test_samples/fe.jpg" },
+        { id: "exit", label: "Emergency Exit", code: "EX-02", src: "/test_samples/exit.jpg" },
+        { id: "hazard", label: "Hazard Sign", code: "HZ-03", src: "/test_samples/hazard.jpg" },
+        { id: "pathway", label: "Pathway Obstruction", code: "PW-04", src: "/test_samples/chair.jpg" },
+        { id: "empty", label: "Empty / No Object", code: "NO-05", src: "/test_samples/empty.jpg" },
     ] as const;
 
     const startCamera = async () => {
@@ -136,13 +136,9 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
                 const result = await visionEngine.detect(canvas, 0.35);
                 const elapsed = Math.round(performance.now() - startTime);
 
-
                 if (!isCancelled) {
                     setLiveDetections(result.detections);
                     setInferenceMs(elapsed || result.inferenceTimeMs);
-                    setFps(2);
-                    const now = new Date();
-                    setLastInferenceTime(now.toLocaleTimeString() + "." + String(now.getMilliseconds()).padStart(3, "0"));
                     setEngineStatus(visionEngine.status);
                 }
             } catch (err) {
@@ -172,7 +168,9 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
                 }
             });
 
-        startCamera();
+        if (!initialDemoMode) {
+            startCamera();
+        }
 
         return () => {
             isMounted = false;
@@ -207,12 +205,7 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
                 if (!isCancelled) {
                     setLiveDetections(result.detections);
                     setInferenceMs(result.inferenceTimeMs);
-                    const now = new Date();
-                    setLastInferenceTime(now.toLocaleTimeString() + "." + String(now.getMilliseconds()).padStart(3, "0"));
                     setEngineStatus(visionEngine.status);
-                    if (visionEngine.status.fps) {
-                        setFps(visionEngine.status.fps);
-                    }
                 }
             } catch (err) {
                 console.warn("[LiveScan] Async background inference warning:", err);
@@ -309,29 +302,56 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
         if (det.isIssue || det.decision === "ISSUE") {
             return { label: "Issue detected", className: "issue-detected" };
         }
-        return { label: "Verified", className: "verified" };
+        return { label: "✓ Verified", className: "verified" };
     };
+
+    const hasActiveView = cameraActive || isDemoMode;
+    const isIssueDetected = liveDetections.some((d) => d.isIssue);
 
     return (
         <main className="live-page">
             <div className="live-container">
-                {/* BACK */}
-                <button className="live-back" onClick={onBack}>
-                    <ArrowLeft size={18} />
-                    Back
-                </button>
 
-                {/* HEADER */}
-                <header className="live-header">
-                    <div>
-                        <span>VERIFYX / {isDemoMode ? "DATASET DEMO MODE" : "LIVE SCAN"}</span>
-                        <h1>{isDemoMode ? "Dataset Evaluation Demo" : "Scan Environment"}</h1>
+                {/* ─── TOP PRECISION TELEMETRY BAR ─────────────────────────── */}
+                <header className="scan-telemetry-header">
+                    <div className="telemetry-left">
+                        <button className="live-back-btn" onClick={onBack} title="Back">
+                            <ArrowLeft size={16} />
+                            <span>RETURN</span>
+                        </button>
+
+                        <div className="telemetry-chips-row">
+                            <div className="telemetry-chip active-ai">
+                                <span className="telemetry-pulse-dot" />
+                                <span>LOCAL AI</span>
+                            </div>
+                            <span className="telemetry-divider">/</span>
+                            <div className="telemetry-chip">
+                                <span>YOLO11n ONNX</span>
+                            </div>
+                            <span className="telemetry-divider">/</span>
+                            <div className="telemetry-chip">
+                                <span>LOCAL INFERENCE</span>
+                            </div>
+                            <span className="telemetry-divider">/</span>
+                            <div className="telemetry-chip rate-pill">
+                                <span>~2 FPS ASYNC</span>
+                            </div>
+                            {inferenceMs > 0 && (
+                                <>
+                                    <span className="telemetry-divider">/</span>
+                                    <div className="telemetry-chip latency">
+                                        <span>{inferenceMs}ms</span>
+                                    </div>
+                                </>
+                            )}
+                        </div>
                     </div>
 
-                    <div className="live-header-controls">
-                        {/* DATASET DEMO TOGGLE BUTTON */}
+                    <div className="telemetry-right">
+                        {/* DATASET DEMO TOGGLE */}
                         <button
-                            className={`vision-mode-btn-demo${isDemoMode ? " active" : ""}`}
+                            className={`mode-toggle-btn ${isDemoMode ? "active-demo" : ""}`}
                             onClick={() => {
                                 if (isDemoMode) {
                                     setIsDemoMode(false);
@@ -340,387 +360,364 @@ export default function LiveScan({ onBack, onResults }: LiveScanProps) {
                                     handleSelectDemoScenario("fe");
                                 }
                             }}
+                            id="btn-toggle-demo-mode"
                         >
-                            {isDemoMode ? "📷 SWITCH TO LIVE CAMERA" : "🧪 DATASET DEMO MODE"}
+                            <FlaskConical size={13} />
+                            <span>{isDemoMode ? "LIVE CAMERA" : "DATASET DEMO"}</span>
                         </button>
 
-                        {/* ENGINE MODE BADGE */}
-                        <div
-                            className={
-                                engineStatus.mode === "local_model"
-                                    ? engineStatus.engineType === "yolo"
-                                        ? "vision-status-chip"
-                                        : "vision-status-chip fallback"
-                                    : "vision-status-chip simulated"
-                            }
-                            title={engineStatus.engineName}
-                        >
-                            <Cpu size={14} />
-                            <span>
-                                {engineStatus.mode === "local_model"
-                                    ? engineStatus.engineType === "yolo"
-                                        ? "VERIFYX SAFETY SCANNER"
-                                        : "SAFETY SCANNER (FALLBACK)"
-                                    : "SIMULATION MODE"}
-                            </span>
-                        </div>
-
+                        {/* DEV HUD TOGGLE */}
                         <button
-                            className={`vision-mode-btn-devhud${devHudOpen ? " active" : ""}`}
+                            className={`dev-toggle-btn ${devHudOpen ? "active" : ""}`}
                             onClick={() => setDevHudOpen((prev) => !prev)}
-                            title="Toggle Developer Diagnostics & Engine Switcher"
+                            title="Diagnostics HUD"
                         >
-                            {devHudOpen ? "HIDE DEV HUD" : "⚡ DEV HUD"}
+                            <Zap size={13} />
                         </button>
 
-                        <div className={cameraActive && !isDemoMode ? "camera-status active" : "camera-status"}>
-                            {cameraActive && !isDemoMode ? <Video size={18} /> : <VideoOff size={18} />}
-                            {isDemoMode ? "DEMO MODE ACTIVE" : cameraActive ? "CAMERA ACTIVE" : "CAMERA OFF"}
+                        {/* SENSOR STATE BADGE */}
+                        <div className={`sensor-badge ${hasActiveView ? "live" : "standby"}`}>
+                            {isDemoMode ? (
+                                <span className="sensor-text demo">EVAL DEMO</span>
+                            ) : cameraActive ? (
+                                <span className="sensor-text live">CAM ON</span>
+                            ) : (
+                                <span className="sensor-text off">STANDBY</span>
+                            )}
                         </div>
                     </div>
                 </header>
 
-                {/* DATASET DEMO SCENARIO SELECTION BAR */}
-                <div className="demo-scenario-bar">
-                    <span className="demo-bar-label">EVALUATION SCENARIO:</span>
-                    {datasetScenarios.map((sc) => {
-                        const isSelected = isDemoMode && demoScenario === sc.id;
-                        return (
-                            <button
-                                key={sc.id}
-                                className={`demo-scenario-btn${isSelected ? " active" : ""}`}
-                                onClick={() => handleSelectDemoScenario(sc.id as any)}
-                            >
-                                {sc.label}
-                            </button>
-                        );
-                    })}
-                </div>
+                {/* ─── DATASET DEMO SELECTOR (WHEN ACTIVE) ─────────────────── */}
+                {isDemoMode && (
+                    <motion.div
+                        className="demo-selector-bar"
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.25 }}
+                    >
+                        <div className="demo-selector-header">
+                            <span className="demo-tag">DATASET DEMO · EVALUATION SAMPLES</span>
+                            <span className="demo-sub">Zero personal photos · Approved audit test suite</span>
+                        </div>
 
-                {/* CAMERA / DEMO VIEWPORT */}
-                <section className="camera-view">
-                    {/* LIVE VIDEO FEED */}
+                        <div className="demo-pills-row">
+                            {datasetScenarios.map((sc) => {
+                                const isSelected = demoScenario === sc.id;
+                                return (
+                                    <button
+                                        key={sc.id}
+                                        className={`demo-pill ${isSelected ? "selected" : ""}`}
+                                        onClick={() => handleSelectDemoScenario(sc.id as any)}
+                                    >
+                                        <span className="pill-code">{sc.code}</span>
+                                        <span className="pill-label">{sc.label}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+                )}
+
+                {/* ─── DOMINANT COMPUTER VISION VIEWPORT ────────────────────── */}
+                <section className="vision-viewport">
+                    {/* LIVE CAMERA FEED */}
                     <video
                         ref={videoRef}
-                        className="camera-video"
+                        className="vision-feed-element"
                         autoPlay
                         muted
                         playsInline
                         style={{ display: isDemoMode ? "none" : "block" }}
                     />
 
-                    {/* DATASET DEMO IMAGE DISPLAY */}
+                    {/* DATASET DEMO IMAGE */}
                     {isDemoMode && (
                         <img
+                            ref={demoImageRef}
                             src={datasetScenarios.find((s) => s.id === demoScenario)?.src}
-                            alt="Dataset Evaluation Sample"
-                            className="camera-video"
+                            alt="Evaluation sample"
+                            className="vision-feed-element"
                             style={{ objectFit: "contain", background: "#050707" }}
                         />
                     )}
 
-                    {/* MOVE CLOSER GUARDRAIL BANNER */}
-                    {(cameraActive || isDemoMode) && scanning && needsCloser && (
-                        <div className="move-closer-banner">
-                            <ShieldAlert size={16} />
-                            <span>MOVE CLOSER TO VERIFY (1.5–3.5m)</span>
-                        </div>
-                    )}
-
-                    {/* CAMERA NOT ACTIVE & NOT DEMO */}
+                    {/* CAMERA NOT ACTIVE & NOT IN DEMO MODE */}
                     {!cameraActive && !isDemoMode && (
-                        <div className="camera-placeholder">
-                            <Camera size={48} />
-                            <h2>Camera not active</h2>
-                            <p>Allow camera access or select Dataset Demo / Evaluation Mode to verify without personal photos.</p>
-                            <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
-                                <button className="camera-start-button" onClick={startCamera}>
-                                    ENABLE CAMERA
+                        <div className="viewport-empty-state">
+                            <Camera size={44} className="empty-icon" />
+                            <h2>Camera Standby</h2>
+                            <p>Enable live camera or select Dataset Demo mode to evaluate locally.</p>
+                            <div className="empty-actions">
+                                <button className="empty-btn primary" onClick={startCamera}>
+                                    <Video size={15} />
+                                    <span>ENABLE CAMERA</span>
                                 </button>
                                 <button
-                                    className="camera-start-button"
+                                    className="empty-btn secondary"
                                     onClick={() => handleSelectDemoScenario("fe")}
-                                    style={{ background: "#1a2622", border: "1px solid #00ff9d", color: "#00ff9d" }}
                                 >
-                                    USE DATASET DEMO
+                                    <FlaskConical size={15} />
+                                    <span>USE DATASET DEMO</span>
                                 </button>
                             </div>
                         </div>
                     )}
 
-
-                    {/* SCAN OVERLAY */}
-                    {cameraActive && scanning && <div className="camera-overlay" />}
-
-                    {/* PATHWAY CORRIDOR GUIDANCE OVERLAY */}
-                    {cameraActive && scanning && (
-                        <div className="pathway-corridor-guide">
-                            <div className="corridor-zone-tag">
-                                <span>Walking Pathway Zone</span>
-                            </div>
-                        </div>
+                    {/* SUBTLE SCAN BEAM (MOVES SLOWLY, THIN, INDUSTRIAL) */}
+                    {hasActiveView && scanning && (
+                        <motion.div
+                            className="industrial-scan-beam"
+                            animate={{ top: ["2%", "96%", "2%"] }}
+                            transition={{
+                                duration: 5,
+                                repeat: Infinity,
+                                ease: "easeInOut",
+                            }}
+                        />
                     )}
 
-                    {/* REAL MODEL DETECTIONS OVERLAY WITH USER-FACING STATES */}
-                    {cameraActive && scanning && liveDetections.length > 0 && (
+                    {/* CORNER RETICLES (HUD OVERLAYS) */}
+                    {hasActiveView && (
                         <>
-                            {liveDetections.map((det) => {
-                                const userState = getUserFacingState(det);
-                                const isReview = userState.className === "review-required";
-                                const isRescan = userState.className === "rescan" || userState.className === "move-closer";
-
-                                const boxClass = isReview
-                                    ? "real-scan-box review"
-                                    : isRescan
-                                    ? "real-scan-box rescan"
-                                    : det.isIssue
-                                    ? "real-scan-box issue"
-                                    : "real-scan-box";
-
-                                const labelClass = isReview
-                                    ? "real-scan-label review"
-                                    : isRescan
-                                    ? "real-scan-label rescan"
-                                    : det.isIssue
-                                    ? "real-scan-label issue"
-                                    : "real-scan-label";
-
-                                return (
-                                    <div
-                                        key={det.id}
-                                        className={boxClass}
-                                        style={{
-                                             left: `${det.bbox.x * 100}%`,
-                                             top: `${det.bbox.y * 100}%`,
-                                             width: `${det.bbox.width * 100}%`,
-                                             height: `${det.bbox.height * 100}%`,
-                                        }}
-                                    >
-                                        <div className={labelClass}>
-                                            <span>{det.label}</span>
-                                            <strong>{Math.round(det.confidence * 100)}%</strong>
-                                            <span className={`user-state-pill ${userState.className}`}>
-                                                {userState.label}
-                                            </span>
-                                        </div>
-                                    </div>
-                                );
-                            })}
+                            <div className="viewport-reticle tl" />
+                            <div className="viewport-reticle tr" />
+                            <div className="viewport-reticle bl" />
+                            <div className="viewport-reticle br" />
                         </>
                     )}
 
-                    {/* CLEAR GUIDANCE WHEN NO OBJECTS DETECTED */}
-                    {cameraActive && scanning && liveDetections.length === 0 && (
-                        <div className="no-detection-overlay-guide">
-                            <div className="no-det-pill">
-                                <strong>NO RELEVANT OBJECT DETECTED</strong>
-                            </div>
-                            <p className="no-det-hint">Move the camera across the area</p>
+                    {/* DYNAMIC SPATIAL CORRIDOR GUIDE */}
+                    {hasActiveView && scanning && (
+                        <div className="pathway-zone-overlay">
+                            <span className="corridor-watermark">WALKING ROUTE 1.0M ZONE</span>
                         </div>
                     )}
 
-                    {/* SCANNING LASER */}
-                    {cameraActive && scanning && <div className="scanning-line" />}
+                    {/* MOVE CLOSER GUARDRAIL BANNER */}
+                    {hasActiveView && scanning && needsCloser && (
+                        <div className="guardrail-closer-banner">
+                            <ShieldAlert size={15} />
+                            <span>MOVE CLOSER TO VERIFY (1.5–3.5m) · DETECTION UNDER 32px</span>
+                        </div>
+                    )}
 
-                    {/* REAL-TIME PERFORMANCE & CONFIDENCE TELEMETRY */}
-                    {cameraActive && scanning && (
-                        <div className="live-metrics-badge">
-                            <span>
-                                LATENCY: <strong>{inferenceMs}ms</strong>
-                            </span>
-                            <span>
-                                FPS: <strong>{fps}</strong>
-                            </span>
-                            <span>
-                                BACKEND: <strong>{engineStatus.backend.toUpperCase()}</strong>
-                            </span>
-                            {primaryDetection ? (
-                                <span>
-                                    OBJECT: <strong>{primaryDetection.label} ({Math.round(primaryDetection.confidence * 100)}% {primaryDetection.confidenceTier})</strong>
-                                </span>
-                            ) : (
-                                <span style={{ color: "#94a3b8" }}>
-                                    OBJECT: <strong>NONE IN VIEW</strong>
-                                </span>
+                    {/* ─── REAL DETECTION OVERLAYS WITH SPRING MOTION ─────────── */}
+                    {hasActiveView && scanning && liveDetections.length > 0 && (
+                        <div className="detections-overlay-container">
+                            <AnimatePresence>
+                                {liveDetections.map((det) => {
+                                    const userState = getUserFacingState(det);
+                                    const isReview = userState.className === "review-required";
+                                    const isRescan = userState.className === "rescan" || userState.className === "move-closer";
+
+                                    const boxClass = isReview
+                                        ? "detection-reticle review"
+                                        : isRescan
+                                        ? "detection-reticle rescan"
+                                        : det.isIssue
+                                        ? "detection-reticle issue"
+                                        : "detection-reticle pass";
+
+                                    return (
+                                        <motion.div
+                                            key={det.id}
+                                            className={boxClass}
+                                            initial={{ opacity: 0, scale: 0.94 }}
+                                            animate={{
+                                                opacity: 1,
+                                                scale: 1,
+                                                left: `${det.bbox.x * 100}%`,
+                                                top: `${det.bbox.y * 100}%`,
+                                                width: `${det.bbox.width * 100}%`,
+                                                height: `${det.bbox.height * 100}%`,
+                                            }}
+                                            exit={{ opacity: 0, scale: 0.96 }}
+                                            transition={{ type: "spring", stiffness: 340, damping: 28 }}
+                                        >
+                                            {/* CORNER MARKS */}
+                                            <span className="box-corner tl" />
+                                            <span className="box-corner tr" />
+                                            <span className="box-corner bl" />
+                                            <span className="box-corner br" />
+
+                                            {/* FLOATING DETECTION LABEL */}
+                                            <motion.div
+                                                className="detection-floating-label"
+                                                initial={{ opacity: 0, y: -4 }}
+                                                animate={{ opacity: 1, y: 0 }}
+                                                transition={{ duration: 0.18 }}
+                                            >
+                                                <span className="label-object-name">{det.label}</span>
+                                                <span className="label-conf-value">
+                                                    {Math.round(det.confidence * 100)}%
+                                                </span>
+                                                <span className={`label-state-pill ${userState.className}`}>
+                                                    {userState.label}
+                                                </span>
+                                            </motion.div>
+                                        </motion.div>
+                                    );
+                                })}
+                            </AnimatePresence>
+                        </div>
+                    )}
+
+                    {/* NO DETECTION IN VIEW GUIDANCE */}
+                    {hasActiveView && scanning && liveDetections.length === 0 && (
+                        <div className="view-empty-guidance">
+                            <span className="guidance-dot" />
+                            <span>NO COMPLIANCE OBJECTS DETECTED · POINT CAMERA AT SAFETY ASSETS</span>
+                        </div>
+                    )}
+
+                    {/* ─── BOTTOM VIEWPORT TELEMETRY READOUT ─────────────────── */}
+                    {hasActiveView && (
+                        <div className="viewport-bottom-telemetry">
+                            {/* DYNAMIC STATE PROGRESSION */}
+                            <div className="state-progression-pill">
+                                {isIssueDetected ? (
+                                    <span className="state-item issue">
+                                        <span className="state-dot" />
+                                        ISSUE DETECTED · CORRIDOR OBSTRUCTION
+                                    </span>
+                                ) : needsCloser ? (
+                                    <span className="state-item warning">
+                                        <span className="state-dot" />
+                                        MOVE CLOSER TO ESTABLISH CONFIDENCE
+                                    </span>
+                                ) : liveDetections.length > 0 ? (
+                                    <span className="state-item pass">
+                                        <span className="state-dot" />
+                                        EVIDENCE FOUND · VERIFIED
+                                    </span>
+                                ) : scanning ? (
+                                    <span className="state-item scanning">
+                                        <span className="state-dot" />
+                                        SCANNING WORKPLACE ENVIRONMENT
+                                    </span>
+                                ) : (
+                                    <span className="state-item standby">
+                                        <span className="state-dot" />
+                                        VISION INSTRUMENT READY
+                                    </span>
+                                )}
+                            </div>
+
+                            {primaryDetection && (
+                                <div className="primary-detection-pill">
+                                    <span className="target-label">PRIMARY TARGET:</span>
+                                    <span className="target-name">
+                                        {primaryDetection.label} ({Math.round(primaryDetection.confidence * 100)}%)
+                                    </span>
+                                </div>
                             )}
                         </div>
                     )}
-
-                    {/* READY STATE */}
-                    {cameraActive && !scanning && (
-                        <div className="ready-indicator">
-                            <ScanLine size={30} />
-                            <span>READY TO SCAN</span>
-                        </div>
-                    )}
                 </section>
 
-                {/* ERROR */}
-                {cameraError && <div className="camera-error">{cameraError}</div>}
+                {cameraError && <div className="live-camera-alert">{cameraError}</div>}
 
-                {/* CONTROLS */}
-                <section className="scan-controls">
-                    <div className="scan-info">
-                        <div>
-                            <span>VERIFICATION MODE</span>
-                            <strong>
-                                {scanning
-                                    ? engineStatus.mode === "local_model"
-                                        ? `Local AI scanning (${liveDetections.length} detected)...`
-                                        : "Simulated scan running..."
-                                    : "Ready"}
-                            </strong>
-                        </div>
-
-                        <div className="scan-icon">
-                            {scanning ? <ScanLine size={22} /> : <Camera size={22} />}
-                        </div>
+                {/* ─── MINIMAL CONTROL CONSOLE ──────────────────────────────── */}
+                <section className="scan-controls-console">
+                    <div className="console-info">
+                        <span className="console-label">INSTRUMENT STATE</span>
+                        <strong className="console-status">
+                            {scanning
+                                ? isDemoMode
+                                    ? "Evaluating approved dataset sample..."
+                                    : "Asynchronous YOLO inference active (~2 FPS)"
+                                : "Paused · Ready"}
+                        </strong>
                     </div>
 
-                    {/* START / STOP */}
-                    <button
-                        className={scanning ? "scan-control stop" : "scan-control"}
-                        onClick={toggleScanning}
-                    >
-                        {scanning ? (
-                            <>
-                                <RotateCcw size={18} />
-                                STOP SCANNING
-                            </>
-                        ) : (
-                            <>
-                                <ScanLine size={18} />
-                                START SCANNING
-                            </>
-                        )}
-                    </button>
-
-                    {/* STATUS CHECKS */}
-                    {scanning && (
-                        <div className="verification-checks">
-                            <div className="check-item done">
-                                <CheckCircle2 size={17} />
-                                Local Safety Engine Active
-                            </div>
-
-                            <div className="check-item">
-                                <span className="pulse-dot" />
-                                {liveDetections.length > 0 ? (
-                                    <>
-                                        <Zap size={14} color="#00ff9d" /> In view:{" "}
-                                        {liveDetections.map((d) => d.label).join(", ")}
-                                    </>
-                                ) : (
-                                    "Aim camera at workplace safety assets or walking pathway..."
-                                )}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* RESULTS BUTTON */}
-                    {scanning && (
-                        <button className="results-button" onClick={handleViewResults}>
-                            VIEW RESULTS
+                    <div className="console-actions">
+                        <button
+                            className={`control-btn-scan ${scanning ? "active-scanning" : ""}`}
+                            onClick={toggleScanning}
+                            id="btn-toggle-scan"
+                        >
+                            {scanning ? (
+                                <>
+                                    <RotateCcw size={16} />
+                                    <span>STOP SCAN</span>
+                                </>
+                            ) : (
+                                <>
+                                    <ScanLine size={16} />
+                                    <span>START SCAN</span>
+                                </>
+                            )}
                         </button>
-                    )}
 
-                    {/* CONFIDENCE TEST HARNESS (DEVELOPER ONLY: HIDDEN IN NORMAL PRODUCTION) */}
-                    {isDevMode && (
-                        <div className="confidence-harness-bar">
-                            <span className="confidence-harness-label">
-                                <ShieldAlert size={12} style={{ display: "inline", verticalAlign: "middle", marginRight: 4 }} />
-                                DEV TEST PROFILES:
-                            </span>
-                            <button
-                                className={`confidence-harness-btn ${testProfile === "live" ? "active" : ""}`}
-                                onClick={() => setTestProfile("live")}
-                            >
-                                Live Model
-                            </button>
-                            <button
-                                className={`confidence-harness-btn ${testProfile === "high_confidence" ? "active" : ""}`}
-                                onClick={() => setTestProfile("high_confidence")}
-                                title="Simulate High Confidence (93% - Confirmed Issue)"
-                            >
-                                High Conf (93%)
-                            </button>
-                            <button
-                                className={`confidence-harness-btn ${testProfile === "medium_confidence" ? "active" : ""}`}
-                                onClick={() => setTestProfile("medium_confidence")}
-                                title="Simulate Medium Confidence (58% - Review Required)"
-                            >
-                                Med Review (58%)
-                            </button>
-                            <button
-                                className={`confidence-harness-btn ${testProfile === "low_confidence" ? "active" : ""}`}
-                                onClick={() => setTestProfile("low_confidence")}
-                                title="Simulate Low Confidence (36% - Rescan Needed)"
-                            >
-                                Low Rescan (36%)
-                            </button>
-                        </div>
-                    )}
-
-                    {/* DEV DIAGNOSTICS & TELEMETRY CARD */}
-                    {isDevMode && (
-                        <div className="dev-hud-card">
-                            <div className="dev-hud-header">
-                                <span>DEVELOPMENT TELEMETRY (PHASE 10)</span>
-                                <span style={{ color: isInferringRef.current ? "#f59e0b" : "#4ade80" }}>
-                                    QUEUE: {isInferringRef.current ? "IN-FLIGHT (NO QUEUE)" : "IDLE"}
-                                </span>
-                            </div>
-                            <div className="dev-hud-grid">
-                                <div className="dev-hud-item">
-                                    <span>Active Model</span>
-                                    <strong>{engineStatus.engineName}</strong>
-                                </div>
-                                <div className="dev-hud-item">
-                                    <span>Inference Latency</span>
-                                    <strong>~{inferenceMs} ms</strong>
-                                </div>
-                                <div className="dev-hud-item">
-                                    <span>Last Inference</span>
-                                    <strong>{lastInferenceTime || "Awaiting frame"}</strong>
-                                </div>
-                                <div className="dev-hud-item">
-                                    <span>Detections</span>
-                                    <strong>{liveDetections.length} object(s)</strong>
-                                </div>
-                                <div className="dev-hud-item">
-                                    <span>Move-Closer Guardrail</span>
-                                    <strong style={{ color: needsCloser ? "#facc15" : "#4ade80" }}>
-                                        {needsCloser ? "ACTIVE (<32px)" : "INACTIVE"}
-                                    </strong>
-                                </div>
-                            </div>
-                            <div className="dev-engine-pills">
-                                <span style={{ fontSize: 11, color: "#64748b", alignSelf: "center", marginRight: 4 }}>SWITCH ENGINE:</span>
-                                <button
-                                    className={`dev-pill-btn ${engineStatus.engineType === "yolo" ? "active" : ""}`}
-                                    onClick={() => handleSwitchEngine("yolo")}
-                                    title="Run trained VERIFYX YOLO11n ONNX model (WASM)"
-                                >
-                                    VERIFYX YOLO (WASM)
-                                </button>
-                                <button
-                                    className={`dev-pill-btn ${engineStatus.engineType === "coco_ssd" ? "active" : ""}`}
-                                    onClick={() => handleSwitchEngine("coco_ssd")}
-                                    title="Run COCO-SSD fallback model (WebGL)"
-                                >
-                                    COCO-SSD Fallback
-                                </button>
-                                <button
-                                    className={`dev-pill-btn ${engineStatus.mode === "simulation" ? "active" : ""}`}
-                                    onClick={() => handleSwitchEngine("simulation")}
-                                    title="Run simulated vision adapter"
-                                >
-                                    Simulation
-                                </button>
-                            </div>
-                        </div>
-                    )}
+                        <button
+                            className="control-btn-results"
+                            onClick={handleViewResults}
+                            disabled={!scanning && !hasActiveView}
+                            id="btn-view-results"
+                        >
+                            <span>VIEW RESULTS</span>
+                            <CheckCircle2 size={16} />
+                        </button>
+                    </div>
                 </section>
+
+                {/* ─── DEV DIAGNOSTICS & TELEMETRY CARD (COLLAPSIBLE) ───────── */}
+                {isDevMode && (
+                    <section className="dev-diagnostics-drawer">
+                        <div className="dev-drawer-header">
+                            <div className="drawer-title">
+                                <Cpu size={14} />
+                                <span>ON-DEVICE DIAGNOSTICS · PHASE 10 / 11 ENGINE</span>
+                            </div>
+                            <span className="queue-status">
+                                {isInferringRef.current ? "PROCESSING FRAME" : "ENGINE IDLE"}
+                            </span>
+                        </div>
+
+                        <div className="dev-metrics-grid">
+                            <div className="dev-metric">
+                                <span>Model</span>
+                                <strong>{engineStatus.engineName}</strong>
+                            </div>
+                            <div className="dev-metric">
+                                <span>Inference</span>
+                                <strong>{inferenceMs} ms</strong>
+                            </div>
+                            <div className="dev-metric">
+                                <span>Detections</span>
+                                <strong>{liveDetections.length} objects</strong>
+                            </div>
+                            <div className="dev-metric">
+                                <span>Guardrail</span>
+                                <strong>{needsCloser ? "ACTIVE (<32px)" : "CLEAR"}</strong>
+                            </div>
+                        </div>
+
+                        <div className="dev-switch-row">
+                            <span className="dev-switch-label">ENGINE:</span>
+                            <button
+                                className={`dev-switch-btn ${engineStatus.engineType === "yolo" ? "active" : ""}`}
+                                onClick={() => handleSwitchEngine("yolo")}
+                            >
+                                YOLO11n (WASM)
+                            </button>
+                            <button
+                                className={`dev-switch-btn ${engineStatus.engineType === "coco_ssd" ? "active" : ""}`}
+                                onClick={() => handleSwitchEngine("coco_ssd")}
+                            >
+                                COCO-SSD (WebGL)
+                            </button>
+                            <button
+                                className={`dev-switch-btn ${engineStatus.mode === "simulation" ? "active" : ""}`}
+                                onClick={() => handleSwitchEngine("simulation")}
+                            >
+                                Simulation
+                            </button>
+                        </div>
+                    </section>
+                )}
+
             </div>
         </main>
     );

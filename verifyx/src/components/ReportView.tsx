@@ -159,9 +159,9 @@ export default function ReportView({
                             EXPORT JSON
                         </button>
 
-                        <button className="tool-btn primary" onClick={handlePrint}>
+                        <button className="tool-btn primary" onClick={handlePrint} id="btn-print-report">
                             <Printer size={15} />
-                            PRINT / SAVE PDF
+                            PRINT REPORT
                         </button>
                     </div>
                 </div>
